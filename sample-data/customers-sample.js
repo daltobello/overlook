@@ -1,5 +1,4 @@
-const sampleCustomers = {
-  customers: [
+const customersData = [
     {
       id: 1,
       name: "Leatha Ullrich",
@@ -8,5 +7,6 @@ const sampleCustomers = {
       id: 2,
       name: "Rocio Schuster",
     },
-  ],
-};
+  ];
+
+export default customersData
