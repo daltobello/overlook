@@ -1,16 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webpack Starter Kit</title>
+  <link rel="stylesheet" href="datepicker.min.css">
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <nav>
+    <div class="nav-container hidden">
+      <div class="home-btn-container">
+          <button id="home-btn">Dashboard</button>
+      </div>
+      <div class="new-booking-container">
+        <button id="new-booking">Booking</button>
+      </div>
+      <div class="title-container">
+        <h1>Overlook</h1>
+      </div>
+    </div>
+    <div class="user-container">
+      <img src="" alt="user icon" class= "user-logo">
+      <h2 id="username" for="username">Please Sign In</h2>
+    </div>
+  </nav>
+  <main>
+    <div class="login-container hidden" id="login-view">
+      <section class="login">
+        <h3 id="login-message">Login</h3>
+        <form>
+          <label for="username-input" class="hidden">Username</label>
+          <input class="login-input" value="customer50" type="text" id="username-input" placeholder="enter username"></input>
+          <label for="password-input" class="hidden">Password</label>
+          <input class="login-input" value="overlook2021" type="password" id="password-input" placeholder="enter password">
+          <button id="login-btn">Submit</button>
+        </form>
+      </section>
+    </div>
+    <section class="dashboard-view hidden">
+      <h3 id="current-bookings">Current Bookings</h3>
+      <h3 id="total-spent">Total Spent</h3>
+        <section class="bookings-display">
+          <section id="current-bookings-container" id="current-bookings">
+            <!-- current bookings will go here -->
+            <section class="room-card">
+              <div class="room-card-container">
+                <p class="booking-info" id="1">Room Number:1</p>
+                <p class="booking-info">Cost: $350</p>
+                <p class="booking-info">Room Type: Suite</p>
+                <p class="booking-info">Beds: 1 King Size Bed</p>
+              </div>
+            </section>
+          </section>
+        </section>
+      <h3>Past Bookings</h3>
+      <section class="bookings-display" id="past-bookings">
+        <section id="past-bookings-container"></section>
+          <!-- past bookings will go here -->
+          <section class="room-card">
+            <div class="room-card-container">
+              <p class="booking-info" id=1>Room Number: 1</p>
+              <p class="booking-info">Cost: $350</p>
+              <p class="booking-info">Room Type: Suite</p>
+              <p class="booking-info">Beds: 1 King Size Bed</p>
+            </div>
+          </section>
+        </section>
+    </section>
+    <section id="new-bookings-view" class="hidden">
+      <h3>Book A Room</h3>
+      <div class="new-booking-selection">
+        <label for="searchDates">Select A Date: </label>
+        <input type="date" placeholder="search dates" id="search-dates">
+        <button id="search-btn">Search</button>
+      </div>
+    <section class="available-rooms">
+            <!-- available rooms will go here -->
+            <!-- <button class="book-now-btn">Book Now</button> -->
+    </section>
+    </section>
+  </main>
+  <script src="datepicker.min.js"></script>
   <script src="bundle.js"></script>
-
 </body>
 </html>

@@ -1,3 +1,68 @@
+@import '~js-datepicker/dist/datepicker.min.css';
+
+
 body {
+  margin: 0;
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  color: black;
+  font-size: .75rem;
+}
+
+.nav-container {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title-container {
+  font-family: Times;
+  font-size: 12px;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aliceblue;
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.room-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-style: solid;
+  margin: 10px;
+  width: 275px;
+  height: 300px;
 }
