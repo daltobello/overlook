@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webpack Starter Kit</title>
+  <link rel="stylesheet" href="datepicker.min.css">
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <nav>
+    <div class="nav-container hidden">
+      <div class="home-btn-container">
+          <button id="home-btn">Dashboard</button>
+      </div>
+      <div class="new-booking-container">
+        <button id="new-booking">New Booking</button>
+      </div>
+    </div>
+    <div class="user-container">
+      <img src="" alt="user icon" class= "user-logo">
+      <div id="user-message" for="username">Log-In</div>
+    </div>
+  </nav>
+  <script src="datepicker.min.js"></script>
   <script src="bundle.js"></script>
-
 </body>
 </html>
