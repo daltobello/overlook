@@ -39,8 +39,16 @@ nav {
   align-items: flex-end;
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 .login {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: aliceblue;
 }
