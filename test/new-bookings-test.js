@@ -19,7 +19,7 @@ describe("getRoomAvailability", () => {
     const allBookings = bookingsData
     const allRooms = roomsData
     const availableRooms = getRoomAvailability(allRooms, allBookings, "2023/01/09")
-    expect(availableRooms).to.deep.equal([{ number: 2, roomType: "suite", bidet: false, bedSize: "full", numBeds: 2, costPerNight: 477.38,
+    expect(availableRooms).to.deep.equal([{ number: 1, roomType: "residential suite", bidet: true, bedSize: "queen", numBeds: 1, costPerNight: 358.4,
     }])
   });
 });
