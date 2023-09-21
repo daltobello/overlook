@@ -18,6 +18,7 @@ export const storeCustomerBookings = (currentCustomer, allBookings, roomsData) =
   return bookingsWithRooms; // array of the booking objects with a room property, containing entire room object and a booking property containing the date
 };
 
+
 export const calculateTotalRoomCost = (customerBookings) => {
   const bookingCost = customerBookings.reduce((total, booking) => {
     total += booking.room.costPerNight
