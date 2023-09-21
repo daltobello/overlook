@@ -7,7 +7,7 @@ import { customersData } from "../sample-data/customers-sample";
 import { roomsData } from "../sample-data/rooms-sample";
 
 // functions
-import { getCustomerBookings, getCustomerRoomBookings, calculateTotalRoomCost} from "../src/bookings";
+import { getCustomerBookings, storeCustomerBookings, calculateTotalRoomCost} from "../src/bookings";
 
 describe("getCustomerBookings", () => {
   it('should be a function', () => {
@@ -33,9 +33,9 @@ describe("getCustomerBookings", () => {
 });
 
 
-describe("getCustomerRoomBookings", () => {
+describe("storeCustomerBookings", () => {
   it('should be a function', () => {
-    expect(getCustomerRoomBookings).to.be.a('function');
+    expect(storeCustomerBookings).to.be.a('function');
   });
 
   it("should return an array of room bookings for a given customer", () => {
@@ -43,22 +43,22 @@ describe("getCustomerRoomBookings", () => {
     const allRooms = roomsData
     const allBookings = bookingsData
     const customer1 =  { id: 1, name: "Leatha Ullrich", };
-    const customer1Bookings = getCustomerRoomBookings(customer1, allBookings, allRooms);
-
-    const expected = [
+    const customer1Bookings = storeCustomerBookings(customer1, allBookings, allRooms);
+// create an array of customer bookings with a room property and date property
+    const bookingsWithRooms = [
       {
         room: room, 
-        booking: "2022/02/05",
+        date: "2022/02/05",
       },
     ];
-    expect(customer1Bookings).to.deep.equal(expected);
+    expect(customer1Bookings).to.deep.equal(bookingsWithRooms);
   });
 
   it("should return an empty array if the customer has no bookings", () => {
     const allRooms = roomsData
     const allBookings = bookingsData
     const customer3 = { id: 3 , name: "No Bookings Customer", };
-    const customer3Bookings = getCustomerRoomBookings(customer3, allBookings, allRooms);
+    const customer3Bookings = storeCustomerBookings(customer3, allBookings, allRooms);
 
     expect(customer3Bookings).to.deep.equal([]);
   });
@@ -73,7 +73,7 @@ describe("calculateTotalRoomCost", () => {
     const allRooms = roomsData
     const allBookings = bookingsData
     const customer1 =  { id: 1, name: "Leatha Ullrich", };
-    const customer1Bookings =  getCustomerRoomBookings(customer1, allBookings, allRooms);
+    const customer1Bookings =  storeCustomerBookings(customer1, allBookings, allRooms);
     const bookingTotal = calculateTotalRoomCost(customer1Bookings)
     const expectedCost = 358.4
     expect(bookingTotal).to.equal(expectedCost)

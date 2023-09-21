@@ -5,7 +5,7 @@ export const getCustomerBookings = (currentCustomer, allBookings) =>{
   return  filteredBookings // array of booking objects that correspond with a given customer's userID
 }
 
-export const getCustomerRoomBookings = (currentCustomer, allBookings, roomsData) => {
+export const storeCustomerBookings = (currentCustomer, allBookings, roomsData) => {
   const customerBookings = allBookings.filter((booking) => {
    return booking.userID === currentCustomer.id
   });
@@ -13,7 +13,7 @@ export const getCustomerRoomBookings = (currentCustomer, allBookings, roomsData)
     const customerRoom = roomsData.find((room) => {
       return room.number === booking.roomNumber
     });
-    return { room: customerRoom, booking: booking.date };
+    return { room: customerRoom, date: booking.date };
   });
   return bookingsWithRooms; // array of the booking objects with a room property, containing entire room object and a booking property containing the date
 };
