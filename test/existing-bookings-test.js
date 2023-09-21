@@ -7,7 +7,7 @@ import { customersData } from "../sample-data/customers-sample";
 import { roomsData } from "../sample-data/rooms-sample";
 
 // functions
-import { getCustomerBookings, storeCustomerBookings, calculateTotalRoomCost} from "../src/bookings";
+import { getCustomerBookings, storeCustomerBookings, calculateTotalRoomCost} from "../src/existing-bookings";
 
 describe("getCustomerBookings", () => {
   it('should be a function', () => {
