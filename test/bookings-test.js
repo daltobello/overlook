@@ -9,43 +9,6 @@ import { roomsData } from "../sample-data/rooms-sample";
 // functions
 import { getCustomerBookings, getCustomerRoomBookings, calculateTotalRoomCost} from "../src/bookings";
 
-
-// figure out import issue to avoid using this globally scoped data again:
-const sampleRooms = [
-  {
-    number: 1,
-    roomType: "residential suite",
-    bidet: true,
-    bedSize: "queen",
-    numBeds: 1,
-    costPerNight: 358.4,
-  },
-  {
-    number: 2,
-    roomType: "suite",
-    bidet: false,
-    bedSize: "full",
-    numBeds: 2,
-    costPerNight: 477.38,
-  },
-];
-
-const sampleBookings = [
-  {
-    id: "5fwrgu4i7k55hl6t8",
-    userID: 1,
-    date: "2022/02/05",
-    roomNumber: 1,
-  },
-  {
-    id: "5fwrgu4i7k55hl6uf",
-    userID: 2,
-    date: "2023/01/09",
-    roomNumber: 2,
-  },
-];
-
-
 describe("getCustomerBookings", () => {
   it('should be a function', () => {
     expect(getCustomerBookings).to.be.a('function');
@@ -76,12 +39,15 @@ describe("getCustomerRoomBookings", () => {
   });
 
   it("should return an array of room bookings for a given customer", () => {
+    const room = roomsData[0]
+    const allRooms = roomsData
+    const allBookings = bookingsData
     const customer1 =  { id: 1, name: "Leatha Ullrich", };
-    const customer1Bookings = getCustomerRoomBookings(customer1, sampleBookings, sampleRooms);
+    const customer1Bookings = getCustomerRoomBookings(customer1, allBookings, allRooms);
 
     const expected = [
       {
-        room: sampleRooms[0], 
+        room: room, 
         booking: "2022/02/05",
       },
     ];
@@ -89,17 +55,25 @@ describe("getCustomerRoomBookings", () => {
   });
 
   it("should return an empty array if the customer has no bookings", () => {
+    const allRooms = roomsData
+    const allBookings = bookingsData
     const customer3 = { id: 3 , name: "No Bookings Customer", };
-    const customer3Bookings = getCustomerRoomBookings(customer3, sampleBookings, sampleRooms);
+    const customer3Bookings = getCustomerRoomBookings(customer3, allBookings, allRooms);
 
     expect(customer3Bookings).to.deep.equal([]);
   });
 });
 
 describe("calculateTotalRoomCost", () => {
+  it('should be a function', () => {
+    expect(calculateTotalRoomCost).to.be.a('function');
+  });
+
   it("should calculate the total cost spent on rooms for a given customer", () => {
+    const allRooms = roomsData
+    const allBookings = bookingsData
     const customer1 =  { id: 1, name: "Leatha Ullrich", };
-    const customer1Bookings =  getCustomerRoomBookings(customer1, sampleBookings, sampleRooms);
+    const customer1Bookings =  getCustomerRoomBookings(customer1, allBookings, allRooms);
     const bookingTotal = calculateTotalRoomCost(customer1Bookings)
     const expectedCost = 358.4
     expect(bookingTotal).to.equal(expectedCost)
