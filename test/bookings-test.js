@@ -7,7 +7,7 @@ import { customersData } from "../sample-data/customers-sample";
 import { roomsData } from "../sample-data/rooms-sample";
 
 // functions
-import { getCustomerBookings, getCustomerRoomBooking} from "../src/bookings";
+import { getCustomerBookings, getCustomerRoomBookings, calculateTotalRoomCost} from "../src/bookings";
 
 
 // figure out import issue to avoid using this globally scoped data again:
@@ -46,11 +46,12 @@ const sampleBookings = [
 ];
 
 
+describe("getCustomerBookings", () => {
+  it('should be a function', () => {
+    expect(getCustomerBookings).to.be.a('function');
+  });
 
-
-
-describe('getCustomerBookings', () => {
-  it('should return bookings for a given customer', () => {
+  it("should return bookings for a given customer", () => {
     const customer1 = customersData[0];
     const customer2 = customersData[1];
 
@@ -68,10 +69,15 @@ describe('getCustomerBookings', () => {
   });
 });
 
-describe("getCustomerRoomBooking", () => {
+
+describe("getCustomerRoomBookings", () => {
+  it('should be a function', () => {
+    expect(getCustomerRoomBookings).to.be.a('function');
+  });
+
   it("should return an array of room bookings for a given customer", () => {
-    const currentCustomer =  { id: 1, name: "Leatha Ullrich", };
-    const result1 = getCustomerRoomBooking(currentCustomer, sampleBookings, sampleRooms);
+    const customer1 =  { id: 1, name: "Leatha Ullrich", };
+    const customer1Bookings = getCustomerRoomBookings(customer1, sampleBookings, sampleRooms);
 
     const expected = [
       {
@@ -79,15 +85,23 @@ describe("getCustomerRoomBooking", () => {
         booking: "2022/02/05",
       },
     ];
-    expect(result1).to.deep.equal(expected);
+    expect(customer1Bookings).to.deep.equal(expected);
   });
 
   it("should return an empty array if the customer has no bookings", () => {
-    const currentCustomer = { id: 3 , name: "No Bookings Customer", };
-    const result2 = getCustomerRoomBooking(currentCustomer, sampleBookings, sampleRooms);
+    const customer3 = { id: 3 , name: "No Bookings Customer", };
+    const customer3Bookings = getCustomerRoomBookings(customer3, sampleBookings, sampleRooms);
 
-    expect(result2).to.deep.equal([]);
+    expect(customer3Bookings).to.deep.equal([]);
   });
 });
 
-
+describe("calculateTotalRoomCost", () => {
+  it("should calculate the total cost spent on rooms for a given customer", () => {
+    const customer1 =  { id: 1, name: "Leatha Ullrich", };
+    const customer1Bookings =  getCustomerRoomBookings(customer1, sampleBookings, sampleRooms);
+    const bookingTotal = calculateTotalRoomCost(customer1Bookings)
+    const expectedCost = 358.4
+    expect(bookingTotal).to.equal(expectedCost)
+});
+})
