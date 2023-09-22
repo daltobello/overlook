@@ -5,7 +5,7 @@ const expect = chai.expect;
 import { bookingsData } from "../sample-data/bookings-sample";
 import { roomsData } from "../sample-data/rooms-sample";
 // functions
-import {getRoomAvailability} from "../src/new-bookings";
+import {getRoomAvailability} from "../src/available-rooms";
 
 describe("getRoomAvailability", () => {
 
