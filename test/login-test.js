@@ -22,12 +22,12 @@ describe("validateUserLogin", () => {
     });
   });
 
-  it("should return 'Incorrect login credentials.' for invalid password", () => {
+  it("should return error message if password is invalid", () => {
     const incorrectPassword = validateUserLogin("customer50", "toast2025", allCustomers);
     expect(incorrectPassword).to.equal("Incorrect login credentials.");
   });
 
-  it("should return 'Incorrect login credentials.' for non-existent user", () => {
+  it("should return error message if user does not exist", () => {
     const incorrectUserID = validateUserLogin("customer999", "overlook2026", allCustomers);
     expect(incorrectUserID).to.equal("Incorrect login credentials.");
   });
