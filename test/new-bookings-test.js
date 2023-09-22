@@ -3,11 +3,9 @@ const expect = chai.expect;
 
 // sample data
 import { bookingsData } from "../sample-data/bookings-sample";
-import { customersData } from "../sample-data/customers-sample";
 import { roomsData } from "../sample-data/rooms-sample";
-
 // functions
-import {getRoomAvailability, filterByRoomType } from "../src/new-bookings";
+import {getRoomAvailability} from "../src/new-bookings";
 
 describe("getRoomAvailability", () => {
 
@@ -33,6 +31,6 @@ describe("getRoomAvailability", () => {
       const allBookings = bookingsData
       const allRooms = roomsData
       const availableRooms = getRoomAvailability(allRooms, allBookings, "2022/02/16")
-      expect(availableRooms).to.deep.equal([]) 
+      expect(availableRooms.length).to.deep.equal(0) 
     });
 });
