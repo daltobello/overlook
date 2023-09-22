@@ -24,12 +24,5 @@ describe("filterByRoomType", () => {
   it('should return an empty array if there are no rooms in the category of the type', () => {
     const noRoomType = filterByRoomType(allRooms, "executive suite")
     expect(noRoomType).to.deep.equal([])
-
-
-
-
   });
-
-
-
 });
