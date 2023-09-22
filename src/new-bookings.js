@@ -18,11 +18,7 @@ export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
       // - if at least one room booking matches the searchDate, isRoomBooked will be true (meaning that room is NOT available) 
       // - isRoomBooked returns false if room available on the searchDate
 
-// slice() out first 8 chars, check if valid 
-// slice out 2 char, for id. 1- 50 valid
-// password: 
 
-// send through object 
 
 
 
