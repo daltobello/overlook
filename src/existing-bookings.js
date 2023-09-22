@@ -27,3 +27,4 @@ export const calculateTotalRoomCost = (customerBookings) => {
   return bookingCost // the sum of all bookings for a given customer
 }
 // customerBookings is the returned value from getCustomerRoomBookings
+

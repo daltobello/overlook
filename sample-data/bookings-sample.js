@@ -11,6 +11,12 @@ export const bookingsData = [
     "date": "2023/01/09",
     "roomNumber": 2
   },
+  {
+    "id": "5fwrgu4i7k55hl6t7",
+    "userID": 20,
+    "date": "2022/02/16",
+    "roomNumber": 7
+  },
 ];
 
 // export default bookingsData

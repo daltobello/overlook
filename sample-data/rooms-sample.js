@@ -14,6 +14,14 @@ export const roomsData = [
     bedSize: "full",
     numBeds: 2,
     costPerNight: 477.38,
+  },
+  {
+    number: 10,
+    roomType: "suite",
+    bidet: false,
+    bedSize: "twin",
+    numBeds: 1,
+    costPerNight: 497.64
   }
 ];
 
