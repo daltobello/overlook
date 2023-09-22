@@ -1,21 +1,24 @@
 export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
-  // console.log({roomsData})
-  // console.log({bookingsData})
-  // console.log({date})
+
   const bookingsOnSearchDate = bookingsData.filter((booking) => {
-    console.log({booking})
-    return booking.date === searchDate // if data matches, return is truthy 
+    return booking.date === searchDate 
   })
-  const availableRooms = roomsData.filter((room) => {
-    return !bookingsOnSearchDate.some((booking) => {
-     return  booking.roomNumber === room.number
+  const availableRooms = roomsData.filter((room) => { 
+    const isRoomBooked = bookingsOnSearchDate.some((booking) => { 
+      // console.log("START") 
+      // console.log({bookingsOnSearchDate})
+      // console.log(booking.roomNumber)
+      // console.log(room.number)
+
+     return  booking.roomNumber === room.number 
     })
+    console.log({isRoomBooked})
+    return !isRoomBooked 
   })
-  return availableRooms
+  // console.log({availableRooms})
+  return availableRooms 
 }
 
 
-       // does this number equal the bookingsOnSearchDate
-// split("/").join("") on the date to format it with dashes.
 
 
