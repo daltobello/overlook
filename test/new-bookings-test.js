@@ -15,15 +15,21 @@ describe("getRoomAvailability", () => {
     expect(getRoomAvailability).to.be.a('function');
   });
 
-  it.skip('should return an array of available rooms on a given date', () => {
+  it('should return an array of available rooms on a given date', () => {
     const allBookings = bookingsData
     const allRooms = roomsData
     const availableRooms = getRoomAvailability(allRooms, allBookings, "2023/01/09")
-    expect(availableRooms).to.deep.equal([{ number: 1, roomType: "residential suite", bidet: true, bedSize: "queen", numBeds: 1, costPerNight: 358.4,
+    expect(availableRooms).to.deep.equal([  {
+      number: 2,
+      roomType: "suite",
+      bidet: false,
+      bedSize: "full",
+      numBeds: 2,
+      costPerNight: 477.38,
     }])
   });
 
-      it.skip('should return an empty array if there are no rooms available on a given date', () => {
+      it('should return an empty array if there are no rooms available on a given date', () => {
       const allBookings = bookingsData
       const allRooms = roomsData
       const availableRooms = getRoomAvailability(allRooms, allBookings, "2022/02/16")
