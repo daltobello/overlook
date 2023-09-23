@@ -1,16 +1,14 @@
 // import datepicker from 'js-datepicker'
 // const picker = datepicker(selector, options)
-
 import { validateUserLogin } from "./login"
-
+import { calculateTotalRoomCost } from "./existing-bookings"
 import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
 
-// loadDashboard function 
-// - use params: current customer, bookings, and rooms
-// if login successful, call a function that updates the user's bookings 
 
+// QUERY SELECTORS
 const customerLoginForm = document.querySelector("form")
 const currentBookingContainer = document.querySelector(".current-bookings-container")
+const bookingsTotal = document.querySelector(".total-spent")
 
   //Helper Functions👇
   const removeHiddenClass = (elements) => {
@@ -27,10 +25,11 @@ const currentBookingContainer = document.querySelector(".current-bookings-contai
     return elements;
   };
 
+  // DOM Functions
   export const displayBookingCards = (customerBookings) => {
-    // currentBookingContainer.innerHTML = " "
+      addHiddenClass([]);
+    currentBookingContainer.innerHTML = " "
     customerBookings.forEach((booking) => {
-      console.log(booking.room)
       currentBookingContainer.innerHTML += `
       <article class="room-card">
               <ul class="room-card-container">
@@ -42,16 +41,13 @@ const currentBookingContainer = document.querySelector(".current-bookings-contai
             </article>
       `
     })
-    console.log(customerBookings)
+  }
+
+  export const displayBookingsTotal = (booking) => {
+    bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(booking)}`;
   }
 
 
-
-
-      // 1. Get query selector for the container where I want to add the booking cards
-// 2. Get the data for the booking cards
-// 3. Populate the html with the booking data:
-// — For each booking, create a booking card
 
 
 
