@@ -26,7 +26,7 @@
     </div>
   </nav>
   <main>
-    <div class="login-container" id="login-view">
+    <div class="login-container hidden" id="login-view">
       <section class="login">
         <h3 id="login-message">Login</h3>
         <form>
@@ -38,20 +38,13 @@
         </form>
       </section>
     </div>
-    <section class="dashboard-view hidden">
+    <section class="dashboard-view">
       <h3 id="current-bookings">Current Bookings</h3>
       <h3 id="total-spent">Total Spent</h3>
         <section class="bookings-display">
-          <section id="current-bookings-container" id="current-bookings">
+          <section class="current-bookings-container" id="current-bookings">
             <!-- current bookings will go here -->
-            <section class="room-card">
-              <div class="room-card-container">
-                <p class="booking-info" id="1">Room Number:1</p>
-                <p class="booking-info">Cost: $350</p>
-                <p class="booking-info">Room Type: Suite</p>
-                <p class="booking-info">Beds: 1 King Size Bed</p>
-              </div>
-            </section>
+            
           </section>
         </section>
       <h3>Past Bookings</h3>
@@ -64,7 +57,7 @@
       <h3>Book A Room</h3>
       <div class="new-booking-selection">
         <label for="select-date">Select A Date: </label>
-        <input type="date" placeholder="search dates" id="search-dates">
+        <input type="date" min="2023-09-23" placeholder="search dates" id="search-dates">
         <button id="search-btn">Search</button>
       </div>
     <section class="available-rooms">

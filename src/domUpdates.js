@@ -10,7 +10,7 @@ import { getAllData, currentCustomer, totalBookings, totalRooms } from "./script
 // if login successful, call a function that updates the user's bookings 
 
 const customerLoginForm = document.querySelector("form")
-const bookingContainer = document.querySelector(".current-bookings-container")
+const currentBookingContainer = document.querySelector(".current-bookings-container")
 
   //Helper Functions👇
   const removeHiddenClass = (elements) => {
@@ -27,19 +27,34 @@ const bookingContainer = document.querySelector(".current-bookings-container")
     return elements;
   };
 
-
-
   export const displayBookingCards = (customerBookings) => {
+    // currentBookingContainer.innerHTML = " "
+    customerBookings.forEach((booking) => {
+      console.log(booking.room)
+      currentBookingContainer.innerHTML += `
+      <article class="room-card">
+              <ul class="room-card-container">
+                <li class="booking-info" id="1">Room Number: ${booking.room.number}</li>
+                <li class="booking-info">Cost: $${booking.room.costPerNight}</li>
+                <li class="booking-info">Room Type: ${booking.room.roomType}</li>
+                <li class="booking-info">Beds: ${booking.room.bedSize}</li>
+                </ul>
+            </article>
+      `
+    })
     console.log(customerBookings)
+  }
 
 
 
-    // 1. Get query selector for the container where I want to add the booking cards
+
+      // 1. Get query selector for the container where I want to add the booking cards
 // 2. Get the data for the booking cards
 // 3. Populate the html with the booking data:
 // — For each booking, create a booking card
 
-  }
+
+
 
   // addHiddenClass([]);
 //   removeHiddenClass([])
