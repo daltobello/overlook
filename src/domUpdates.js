@@ -43,8 +43,8 @@ const bookingsTotal = document.querySelector(".total-spent")
     })
   }
 
-  export const displayBookingsTotal = (booking) => {
-    bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(booking)}`;
+  export const displayBookingsTotal = (customerBookings) => {
+    bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings)}`;
   }
 
 
