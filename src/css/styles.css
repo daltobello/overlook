@@ -3,7 +3,7 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background: rgba(187, 174, 165, 0.40);
 }
 
 nav {
@@ -17,9 +17,11 @@ nav {
 }
 
 .nav-container {
-  height: 5rem;
   display: flex;
   align-items: center;
+  width: 94.5rem;
+  height: 6.6875rem;
+  background: #EDEBEA;
 }
 
 .user-container {
@@ -50,12 +52,21 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aliceblue;
+  width: 41.75rem;
+  height: 7.25rem;
+  background: rgba(187, 174, 165, 0.40);
 }
 
-/* .hidden {
-  display: none;
-} */
+
+
+.bookings-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  margin: 10px;
+  height: 450px;
+}
 
 .room-card {
   display: flex;
@@ -65,4 +76,8 @@ main {
   margin: 10px;
   width: 275px;
   height: 300px;
+}
+
+.hidden {
+  display: none;
 }
