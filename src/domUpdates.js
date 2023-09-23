@@ -30,21 +30,23 @@ const bookingsTotal = document.querySelector(".total-spent")
       addHiddenClass([]);
     currentBookingContainer.innerHTML = " "
     customerBookings.forEach((booking) => {
+      console.log(booking.room)
       currentBookingContainer.innerHTML += `
-      <article class="room-card">
+      <article class="room-card" id="${booking.room.number}>
               <ul class="room-card-container">
-                <li class="booking-info" id="1">Room Number: ${booking.room.number}</li>
-                <li class="booking-info">Cost: $${booking.room.costPerNight}</li>
+                <li class="booking-info">Room Number: ${booking.room.number}</li>
+                <li class="booking-info">Cost: $${booking.room.costPerNight.toFixed(2)}</li>
                 <li class="booking-info">Room Type: ${booking.room.roomType}</li>
                 <li class="booking-info">Beds: ${booking.room.bedSize}</li>
                 </ul>
+                <button class="book-now">Book Now</button>
             </article>
       `
     })
   }
 
   export const displayBookingsTotal = (customerBookings) => {
-    bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings)}`;
+    bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings).toFixed(2)}`;
   }
 
 
