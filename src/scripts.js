@@ -1,12 +1,19 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+// IMPORT
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
+// An example of how you tell webpack to use an image (also need to link to it in the index.html)
+
+// Import get functions from apiCalls.js
+// Import DOM functions that require the actual data when they are called inside of event listeners
+// i.e. load dashboard, render filter results, and book functions 
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
+// QUERY SELECTORS
+// add all query selectors here. EXPORT them, then IMPORT in domUpdates 
 
+// GLOBAL VARIABLES 
+// declare global variables that will store the actual data and be passed into functions that update the DOM.
+
+// START FUNCTION
+
+// EVENT LISTENERS
