@@ -1,7 +1,5 @@
 export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
-  // const formattedSearchDate = searchDate.split("/").join("-")
-  // console.log({formattedSearchDate})
-  const bookingsOnSearchDate = bookingsData.filter((booking) => { // bookingsOnSearchDate array only contains bookings with the searchDate
+  const bookingsOnSearchDate = bookingsData.filter((booking) => {
     return booking.date === searchDate
   })
   const availableRooms = roomsData.filter((room) => { 
@@ -17,6 +15,9 @@ export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
       // check if at least one booking on the searchDate matches the room number
       // - if at least one room booking matches the searchDate, isRoomBooked will be true (meaning that room is NOT available) 
       // - isRoomBooked returns false if room available on the searchDate
+      
+ // bookingsOnSearchDate array only contains bookings with the searchDate
+        // const formattedSearchDate = searchDate.split("/").join("-")
 
 
 
