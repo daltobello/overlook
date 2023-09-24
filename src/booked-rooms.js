@@ -6,9 +6,7 @@ export const getCustomerBookings = (currentCustomer, allBookings) =>{
 }
 
 export const storeCustomerBookings = (currentCustomer, allBookings, roomsData) => {
-  const customerBookings = allBookings.filter((booking) => {
-   return booking.userID === currentCustomer.id
-  });
+  const customerBookings = getCustomerBookings(currentCustomer, allBookings)
   const bookingsWithRooms = customerBookings.map((booking) => {
     const customerRoom = roomsData.find((room) => {
       return room.number === booking.roomNumber

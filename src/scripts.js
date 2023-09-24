@@ -1,12 +1,66 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+// IMPORT
 import './css/styles.css';
+// - API calls
+import { getCustomers, getBookings, getRooms } from "./apiCalls"
+// - Functions
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, } from "./domUpdates" 
+import { storeCustomerBookings } from "./booked-rooms"
+import { getRoomAvailability } from "./available-rooms"
+// - querySelectors
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn,  } from "./domUpdates"
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+
+// GLOBAL VARIABLES 
+let currentCustomer
+let totalBookings
+let totalRooms
+// declare global variables that will store the actual data and be passed into functions that update the DOM.
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
+// START FUNCTION
+export const fetchAllData = () => { 
+  return Promise.all([getCustomers(), getBookings(), getRooms()])
+  .then( data =>{
+    console.log(data)
+    currentCustomer = data[0].customers
+    totalBookings = data[1].bookings
+    totalRooms = data[2].rooms
+  })
+}
+
+// EVENT LISTENERS
+const loadDashboard = () => {
+  fetchAllData()
+  .then( () => {
+    const customerBookings = storeCustomerBookings(currentCustomer[1], totalBookings, totalRooms)
+    renderBookingCards(customerBookings)
+    renderBookingsTotal(customerBookings)
+  })
+}
+window.addEventListener("load", loadDashboard)
+
+
+bookingBtn.addEventListener("click", () => {
+  displayBookingsView() 
+})
+
+dashboardBtn.addEventListener("click", () => {
+  loadDashboard() // FIX: don't want to load the data again, just want to change view
+  displayDashboardView()
+})
+
+searchDateBtn.addEventListener("click", () => {
+  console.log("yooooo")
+  const searchDate = selectedDate.value.replaceAll("-", "/")
+  console.log({searchDate})
+  console.log({totalBookings})
+  console.log({totalRooms})
+  const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
+  console.log({availableRooms})
+  displayAvailableRooms(availableRooms)
+})
+
+
+// clicking on bookings should change the view from dashboard to the bookings view
+// selectedDate[0].min = dayjs().format('YYYY-MM-DD');
 
