@@ -2,7 +2,8 @@
 // const picker = datepicker(selector, options)
 import { validateUserLogin } from "./login"
 import { calculateTotalRoomCost } from "./booked-rooms"
-import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
+import { totalBookings, totalRooms } from "./scripts"
+// import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
 
 
 // QUERY SELECTORS
@@ -12,9 +13,11 @@ const availableRoomsContainer = document.querySelector(".available-rooms-contain
 const bookingsTotal = document.querySelector(".total-spent")
 export const bookingBtn = document.querySelector("#new-booking")
 export const dashboardBtn = document.querySelector("#dashboard-btn")
-const searchDate = document.querySelector("#search-dates")
+export const searchDateBtn = document.querySelector("#search-btn")
+export const selectedDate = document.querySelector("#selected-date-input")
 const dashboardView = document.querySelector("#dashboard-view")
 const newBookingView = document.querySelector("#new-bookings-view")
+
 
   //Helper Functions👇
   const removeHiddenClass = (elements) => {
@@ -60,7 +63,6 @@ const newBookingView = document.querySelector("#new-bookings-view")
 export const displayBookingsView = () => {
   addHiddenClass([dashboardView]);
   removeHiddenClass([newBookingView])
-  searchDate.value = ""
 }
 
 export const displayDashboardView = () => {
@@ -70,31 +72,21 @@ export const displayDashboardView = () => {
 
 export const displayAvailableRooms = (availableRooms) => {
   availableRoomsContainer.innerHTML = ""
-
+    selectedDate.value = ""
+  availableRooms.forEach((room) => {
+    availableRoomsContainer.innerHTML += `
+    <article class="room-card" id="${room.number}>
+            <ul class="room-card-container">
+              <li class="booking-info">Room Number: ${room.number}</li>
+              <li class="booking-info">Cost: $${room.costPerNight.toFixed(2)}</li>
+              <li class="booking-info">Room Type: ${room.roomType}</li>
+              <li class="booking-info">Beds: ${room.bedSize}</li>
+              </ul>
+          </article>
+    `
+  })
 }
 
-// instead of rendering booking cards via innerHTML multiple times. 
+// after i query select my input with a type=“date” attribute, i need to assign its “min” attribute to dayjs().format('YYYY-MM-DD’). i’m unclear on where to do this though. inside of a DOM function that will fire when my booking view is visible or is there a better place to do this? 
+//  next step is to invoke my function that returns only available rooms with the using the query selected input.value. does that sound right to you?
 
-
-
-
-// const renderSelectTagOptions = tagData => {
-//   tagData.forEach(tag => {
-//     dropDownMenu.innerHTML += `
-//         <option value="${tag}">${tag}</option>
-//         `;
-//   });
-// };
-
-
-// const renderRecipeCardsByTag = (recipeList, tag) => {
-//   const recipeByTagList = filterByTag(currentRecipeList, tag);
-//   recipeContainer.innerHTML = '';
-//   let defaultTag = '';
-//   if (tag === 'all') {
-//     renderRecipeCards(recipeList);
-//   } else {
-//     renderRecipeCards(recipeByTagList);
-//     currentRecipeList = recipeByTagList;
-//   }
-// };
