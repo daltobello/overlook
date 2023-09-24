@@ -1,9 +1,9 @@
 // import datepicker from 'js-datepicker'
 // const picker = datepicker(selector, options)
+// import { totalBookings, totalRooms } from "./scripts"
+// import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
 import { validateUserLogin } from "./login"
 import { calculateTotalRoomCost } from "./booked-rooms"
-import { totalBookings, totalRooms } from "./scripts"
-// import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
 
 
 // QUERY SELECTORS
@@ -17,6 +17,8 @@ export const searchDateBtn = document.querySelector("#search-btn")
 export const selectedDate = document.querySelector("#selected-date-input")
 const dashboardView = document.querySelector("#dashboard-view")
 const newBookingView = document.querySelector("#new-bookings-view")
+export const roomTypeDropdown = document.querySelector("#room-type-dropdown")
+export const roomTypeSelection = document.querySelector("#room-type")
 
 
   //Helper Functions👇
@@ -72,7 +74,7 @@ export const displayDashboardView = () => {
 
 export const displayAvailableRooms = (availableRooms) => {
   availableRoomsContainer.innerHTML = ""
-    selectedDate.value = ""
+  selectedDate.value = ""
   availableRooms.forEach((room) => {
     availableRoomsContainer.innerHTML += `
     <article class="room-card" id="${room.number}>
@@ -82,6 +84,7 @@ export const displayAvailableRooms = (availableRooms) => {
               <li class="booking-info">Room Type: ${room.roomType}</li>
               <li class="booking-info">Beds: ${room.bedSize}</li>
               </ul>
+              <button id="book-now-btn">Book Now</button>
           </article>
     `
   })

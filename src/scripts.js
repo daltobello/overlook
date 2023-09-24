@@ -6,15 +6,16 @@ import { getCustomers, getBookings, getRooms } from "./apiCalls"
 import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, } from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
+import { filterByRoomType } from "./filter-rooms"
 // - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn,  } from "./domUpdates"
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection } from "./domUpdates"
 
-
+// declare global variables that will store the actual data and be passed into functions that update the DOM.
 // GLOBAL VARIABLES 
 let currentCustomer
 let totalBookings
 let totalRooms
-// declare global variables that will store the actual data and be passed into functions that update the DOM.
+
 
 
 // START FUNCTION
@@ -35,6 +36,7 @@ const loadDashboard = () => {
     const customerBookings = storeCustomerBookings(currentCustomer[1], totalBookings, totalRooms)
     renderBookingCards(customerBookings)
     renderBookingsTotal(customerBookings)
+    // selectedDate[0].min = dayjs().format('YYYY-MM-DD');
   })
 }
 window.addEventListener("load", loadDashboard)
@@ -50,17 +52,19 @@ dashboardBtn.addEventListener("click", () => {
 })
 
 searchDateBtn.addEventListener("click", () => {
-  console.log("yooooo")
   const searchDate = selectedDate.value.replaceAll("-", "/")
-  console.log({searchDate})
-  console.log({totalBookings})
-  console.log({totalRooms})
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
-  console.log({availableRooms})
   displayAvailableRooms(availableRooms)
+})
+
+roomTypeSelection.addEventListener("change", () => {
+  const selectedRoomType = roomTypeSelection.value
+  console.log({selectedRoomType})
+  const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
+  displayAvailableRooms(filteredRooms)
 })
 
 
 // clicking on bookings should change the view from dashboard to the bookings view
-// selectedDate[0].min = dayjs().format('YYYY-MM-DD');
+
 

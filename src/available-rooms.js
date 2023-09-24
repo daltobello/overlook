@@ -6,7 +6,7 @@ export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
     const isRoomBooked = bookingsOnSearchDate.some((booking) => { 
      return  booking.roomNumber === room.number 
     })
-    return isRoomBooked 
+    return !isRoomBooked 
   })
   return availableRooms 
 }
