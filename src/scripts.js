@@ -59,9 +59,15 @@ searchDateBtn.addEventListener("click", () => {
 
 roomTypeSelection.addEventListener("change", () => {
   const selectedRoomType = roomTypeSelection.value
-  console.log({selectedRoomType})
-  const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
-  displayAvailableRooms(filteredRooms)
+  if (selectedRoomType === "all") {
+    const searchDate = selectedDate.value.replaceAll("-", "/")
+    const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
+    displayAvailableRooms(availableRooms)
+  } else {
+    console.log({selectedRoomType})
+    const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
+    displayAvailableRooms(filteredRooms)
+  }
 })
 
 
