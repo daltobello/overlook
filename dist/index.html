@@ -11,7 +11,7 @@
   <nav>
     <div class="nav-container">
       <div class="home-btn-container">
-          <button id="home-btn">Dashboard</button>
+          <button id="dashboard-btn">Dashboard</button>
       </div>
       <div class="new-booking-container">
         <button id="new-booking">Booking</button>
@@ -38,7 +38,7 @@
         </form>
       </section>
     </div>
-    <section class="dashboard-view">
+    <section id="dashboard-view" class="dashboard">
       <h3 id="current-bookings">Current Bookings</h3>
       <h3 class="total-spent">Total Spent</h3>
         <section class="bookings-display">
@@ -47,22 +47,31 @@
             
           </section>
         </section>
-      <h3>Past Bookings</h3>
+      <!-- <h3>Past Bookings</h3>
       <section class="bookings-display" id="past-bookings">
         <section id="past-bookings-container"></section>
-          <!-- past bookings will go here -->
-        </section>
+          past bookings will go here
+        </section> -->
     </section>
     <section id="new-bookings-view" class="hidden">
       <h3>Book A Room</h3>
-      <div class="new-booking-selection">
+      <div id="new-booking-selection">
         <label for="select-date">Select A Date: </label>
         <input type="date" min="2023-09-23" placeholder="search dates" id="search-dates">
         <button id="search-btn">Search</button>
       </div>
-    <section class="available-rooms">
+      <div id="room-type-dropdown">
+        <label for="language">Filter By Type:</label>
+        <select name="room-type" id="room-type">
+          <option value="all" selected>All</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="suite">Junior Suite</option>
+          <option value="single room">Single Room</option>
+        </select>
+      </div>
+    <section class="available-rooms-container" id="available-bookings">
             <!-- available rooms will go here -->
-            <!-- <button class="book-now-btn">Book Now</button> -->
     </section>
     </section>
   </main>

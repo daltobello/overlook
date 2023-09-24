@@ -1,9 +1,10 @@
 // IMPORT
 import './css/styles.css';
 import { getCustomers, getBookings, getRooms } from "./apiCalls" // Import GET functions from apiCalls.js
-import {displayBookingCards, displayBookingsTotal } from "./domUpdates" // Import DOM functions that require the actual data when they are called inside of event listeners 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, searchDate, dashboardBtn, bookingBtn } from "./domUpdates" // Import DOM functions that require the actual data when they are called inside of event listeners 
 // i.e. load dashboard, render filter results, and book functions 
-import { storeCustomerBookings } from "./existing-bookings"
+import { storeCustomerBookings } from "./booked-rooms"
+import { getRoomAvailability } from "./available-rooms"
 
 
 
@@ -15,7 +16,7 @@ export let totalRooms
 
 
 // START FUNCTION
-export const getAllData = () => { // call getAllData inside a function that runs when a user logs in...?
+export const fetchAllData = () => { 
   return Promise.all([getCustomers(), getBookings(), getRooms()])
   .then( data =>{
     console.log(data)
@@ -27,13 +28,33 @@ export const getAllData = () => { // call getAllData inside a function that runs
 
 // EVENT LISTENERS
 const loadDashboard = () => {
-  getAllData().then( () => {
+  fetchAllData()
+  .then( () => {
     const customerBookings = storeCustomerBookings(currentCustomer[1], totalBookings, totalRooms)
-    displayBookingCards(customerBookings)
-    displayBookingsTotal(customerBookings)
+    renderBookingCards(customerBookings)
+    renderBookingsTotal(customerBookings)
   })
 }
-
 window.addEventListener("load", loadDashboard)
 
-// const totalRoomCosts = calculateTotalRoomCost(customerBookings)
+
+bookingBtn.addEventListener("click", () => {
+  displayBookingsView()
+})
+
+dashboardBtn.addEventListener("click", () => {
+  console.log("Heeeey")
+  loadDashboard()
+  displayDashboardView()
+})
+
+
+//   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate.value)
+//   displayAvailableRooms(availableRooms)
+
+// clicking on bookings should change the view from dashboard to the bookings view
+
+// different event listener for searching a date and 
+
+// searchDateInput[0].min = dayjs().format('YYYY-MM-DD');
+

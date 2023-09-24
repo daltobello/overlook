@@ -1,14 +1,20 @@
 // import datepicker from 'js-datepicker'
 // const picker = datepicker(selector, options)
 import { validateUserLogin } from "./login"
-import { calculateTotalRoomCost } from "./existing-bookings"
+import { calculateTotalRoomCost } from "./booked-rooms"
 import { getAllData, currentCustomer, totalBookings, totalRooms } from "./scripts"
 
 
 // QUERY SELECTORS
 const customerLoginForm = document.querySelector("form")
 const currentBookingContainer = document.querySelector(".current-bookings-container")
+const availableRoomsContainer = document.querySelector(".available-rooms-container")
 const bookingsTotal = document.querySelector(".total-spent")
+export const bookingBtn = document.querySelector("#new-booking")
+export const dashboardBtn = document.querySelector("#dashboard-btn")
+const searchDate = document.querySelector("#search-dates")
+const dashboardView = document.querySelector("#dashboard-view")
+const newBookingView = document.querySelector("#new-bookings-view")
 
   //Helper Functions👇
   const removeHiddenClass = (elements) => {
@@ -26,11 +32,12 @@ const bookingsTotal = document.querySelector(".total-spent")
   };
 
   // DOM Functions
-  export const displayBookingCards = (customerBookings) => {
+
+// DASHBOARD
+  export const renderBookingCards = (customerBookings) => {
       addHiddenClass([]);
     currentBookingContainer.innerHTML = " "
     customerBookings.forEach((booking) => {
-      console.log(booking.room)
       currentBookingContainer.innerHTML += `
       <article class="room-card" id="${booking.room.number}>
               <ul class="room-card-container">
@@ -39,54 +46,55 @@ const bookingsTotal = document.querySelector(".total-spent")
                 <li class="booking-info">Room Type: ${booking.room.roomType}</li>
                 <li class="booking-info">Beds: ${booking.room.bedSize}</li>
                 </ul>
-                <button class="book-now">Book Now</button>
             </article>
       `
     })
   }
 
-  export const displayBookingsTotal = (customerBookings) => {
+  export const renderBookingsTotal = (customerBookings) => {
     bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings).toFixed(2)}`;
   }
 
+// AVAILABLE BOOKINGS
+
+export const displayBookingsView = () => {
+  addHiddenClass([dashboardView]);
+  removeHiddenClass([newBookingView])
+  searchDate.value = ""
+}
+
+export const displayDashboardView = () => {
+  removeHiddenClass([dashboardView])
+  addHiddenClass([newBookingView]);
+}
+
+export const displayAvailableRooms = (availableRooms) => {
+  availableRoomsContainer.innerHTML = ""
+
+}
+
+// instead of rendering booking cards via innerHTML multiple times. 
 
 
 
 
-
-  // addHiddenClass([]);
-//   removeHiddenClass([])
-
-// const handleLogin = () => {
-//   validateUserLogin(username, password, customerData)
-//   getAllData()
-// }
-
+// const renderSelectTagOptions = tagData => {
+//   tagData.forEach(tag => {
+//     dropDownMenu.innerHTML += `
+//         <option value="${tag}">${tag}</option>
+//         `;
+//   });
+// };
 
 
-
-
-
-
-// bookingContainer.innerHTML += `
-// <section class="room-card">
-//           <div class="room-card-container">
-//             <p class="booking-info" id="1">Room Number:1</p>
-//             <p class="booking-info">Cost: $350</p>
-//             <p class="booking-info">Room Type: Suite</p>
-//             <p class="booking-info">Beds: 1 King Size Bed</p>
-//           </div>
-//         </section>
-// `
-
-
-
-
-// cont addBooking = (currentCustomer) => {
-//   // sequence of what happens when button is clicked
-//   // avail rooms sitting on DOM, when you hit 
-//   const currentCustomerBookings = getCustomerBookings()
-//   const availRooms = getRoomAvailability()
-//   currentCustomerBookings.push(availRooms)
-//   // push into customer booking to add bookings
-// }
+// const renderRecipeCardsByTag = (recipeList, tag) => {
+//   const recipeByTagList = filterByTag(currentRecipeList, tag);
+//   recipeContainer.innerHTML = '';
+//   let defaultTag = '';
+//   if (tag === 'all') {
+//     renderRecipeCards(recipeList);
+//   } else {
+//     renderRecipeCards(recipeByTagList);
+//     currentRecipeList = recipeByTagList;
+//   }
+// };
