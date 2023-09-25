@@ -62,10 +62,9 @@ searchDateBtn.addEventListener("click", () => {
 roomTypeSelection.addEventListener("change", () => {
   const selectedRoomType = roomTypeSelection.value
   if (selectedRoomType === "all") {
-    // const searchDate = selectedDate.value.replaceAll("-", "/")
-    // console.log({searchDate})
-    // const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
-    // displayAvailableRooms(availableRooms)
+    const searchDate = selectedDate.value.replaceAll("-", "/")
+    const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
+    displayAvailableRooms(availableRooms)
   } else {
     const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
     displayAvailableRooms(filteredRooms)
@@ -73,18 +72,12 @@ roomTypeSelection.addEventListener("change", () => {
 })
 
 
-availableRoomsContainer.addEventListener("click", (event) => {
-  const inputDate = document.querySelector("#selected-date-input");
-  handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
-});
-
 const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalBookings) => {
   if (event.target.classList.contains("book-now")) {
     const roomNumber = parseInt(event.target.parentElement.id);
     const bookingDate = selectedDate.value.replaceAll("-", "/");
     const userID = currentCustomer.id;
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
-
     // make POST request
     postNewBookedRoom(dataToPost)
       .then(() => {
@@ -103,4 +96,7 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
   }
 };
 
-
+availableRoomsContainer.addEventListener("click", (event) => {
+  const inputDate = document.querySelector("#selected-date-input");
+  handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
+});
