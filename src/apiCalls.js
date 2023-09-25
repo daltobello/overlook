@@ -45,7 +45,12 @@ export const postNewBookedRoom = (data) => {
       "Content-Type": "application/json",
     },
   })
-    .then((response) => response.json())
-    .then((data => data))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data => console.log(data)))
     .catch((error) => console.log(error));
 };

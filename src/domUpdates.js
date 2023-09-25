@@ -2,9 +2,10 @@
 // const picker = datepicker(selector, options)
 
 import { validateUserLogin } from "./login"
-import { generatePostData, postNewBookedRoom } from "./apiCalls"
+import { generatePostData, postNewBookedRoom, getBookings } from "./apiCalls"
+import { totalBookings } from "./scripts"
 import { fetchAllData } from "./scripts"
-
+import { getRoomAvailability } from "./available-rooms"
 import { calculateTotalRoomCost } from "./booked-rooms"
 // QUERY SELECTORS
 const customerLoginForm = document.querySelector("form")
@@ -41,7 +42,6 @@ export const roomTypeSelection = document.querySelector("#room-type")
 
 // DASHBOARD
   export const renderBookingCards = (customerBookings) => {
-    console.log({customerBookings})
       addHiddenClass([]);
     currentBookingContainer.innerHTML = " "
     customerBookings.forEach((booking) => {
@@ -94,7 +94,6 @@ export const displayAvailableRooms = (availableRooms) => {
 }
 
 
-
 export const handleNewBooking = (event, currentCustomer, allRooms, selectedDate) => {
   if (event.target.classList.contains("book-now")) {
     const roomNumber = parseInt(event.target.parentElement.id);
@@ -103,23 +102,23 @@ export const handleNewBooking = (event, currentCustomer, allRooms, selectedDate)
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
     // make POST request
     postNewBookedRoom(dataToPost)
-      .then((response) => {
-        if (response.ok) {
+      .then(() => { 
           // fetch updated data to refresh available rooms
-          fetchAllData()
-          .then(() => {
+          getBookings()
+          .then((bookings) => {
+          console.log({bookings})
+            totalBookings = bookings.bookings
           });
           // outside of .then use global variables to update 
           const searchDate = selectedDate.value
-          const availRooms = getRoomAvailability(allRooms, bookings, searchDate);
+          const availRooms = getRoomAvailability(allRooms, totalBookings, searchDate);
           displayAvailableRooms(availRooms);
-        } else {
-          throw new Error("Something went wrong.")
-        }
       })
       .catch((error) => console.log(error));
   }
 }
+
+
 
 
 

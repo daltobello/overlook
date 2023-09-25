@@ -11,12 +11,13 @@ import { getRoomAvailability } from "./available-rooms"
 import { filterByRoomType, findRoom } from "./filter-rooms"
 // - querySelectors
 import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer } from "./domUpdates"
+import dayjs from "dayjs"
 
 
 // declare global variables that will store the actual data and be passed into functions that update the DOM.
 // GLOBAL VARIABLES 
 let currentCustomer
-let totalBookings
+export let totalBookings
 let totalRooms
 
 
@@ -42,7 +43,7 @@ const loadDashboard = () => {
   })
 }
 window.addEventListener("load", () => {
-  // selectedDate.min = dayjs().format('YYYY-MM-DD');
+  selectedDate.min = dayjs().format('YYYY-MM-DD');
   loadDashboard()
 })
 
@@ -77,7 +78,6 @@ roomTypeSelection.addEventListener("change", () => {
 })
 
 availableRoomsContainer.addEventListener("click", (event) => {
-  console.log("can you see this")
   const inputDate = document.querySelector("#selected-date-input"); 
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, inputDate)
   displayAvailableRooms(availableRooms)
