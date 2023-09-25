@@ -5,10 +5,10 @@ import { getCustomers, getBookings, getRooms } from "./apiCalls"
 // API POST
 import { generatePostData, postNewBookedRoom } from "./apiCalls"
 // - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, addHiddenClass, removeHiddenClass} from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
-import { filterByRoomType, findRoom } from "./filter-rooms"
+// import { filterByRoomType, findRoom } from "./filter-rooms"
 // - querySelectors
 import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer } from "./domUpdates"
 import dayjs from "dayjs"
@@ -17,6 +17,7 @@ import dayjs from "dayjs"
 let currentCustomer
 export let totalBookings
 let totalRooms
+let bookedRoomNumbers = []
 
 
 // START FUNCTION
@@ -59,18 +60,58 @@ searchDateBtn.addEventListener("click", () => {
   displayAvailableRooms(availableRooms)
 })
 
-roomTypeSelection.addEventListener("change", () => {
-  const selectedRoomType = roomTypeSelection.value
-  if (selectedRoomType === "all") {
-    const searchDate = selectedDate.value.replaceAll("-", "/")
-    const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
-    displayAvailableRooms(availableRooms)
-  } else {
-    const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
-    displayAvailableRooms(filteredRooms)
-  }
-})
 
+
+
+// roomTypeSelection.addEventListener("change", () => {
+//   const selectedRoomType = roomTypeSelection.value
+//   if (selectedRoomType === "all") {
+//     const searchDate = selectedDate.value.replaceAll("-", "/")
+//     const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
+//     displayAvailableRooms(availableRooms)
+//   } else {
+//     const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
+//     displayAvailableRooms(filteredRooms)
+//   }
+// })
+
+roomTypeSelection.addEventListener("change", () => {
+  const selectedRoomType = roomTypeSelection.value;
+  const searchDate = selectedDate.value.replaceAll("-", "/");
+  updateAvailableRooms(totalRooms, totalBookings, searchDate, selectedRoomType);
+});
+
+roomTypeSelection.addEventListener("change", () => {
+  const selectedRoomType = roomTypeSelection.value;
+  const searchDate = selectedDate.value.replaceAll("-", "/");
+  updateAvailableRooms(totalRooms, totalBookings, searchDate, selectedRoomType);
+});
+
+
+// const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalBookings) => {
+//   if (event.target.classList.contains("book-now")) {
+//     const roomNumber = parseInt(event.target.parentElement.id);
+//     const bookingDate = selectedDate.value.replaceAll("-", "/");
+//     const userID = currentCustomer.id;
+//     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
+//     // make POST request
+//     postNewBookedRoom(dataToPost)
+//       .then(() => {
+//         // fetch updated data to refresh available rooms
+//         getBookings()
+//           .then((bookings) => {
+//             totalBookings = bookings.bookings;
+//             removeBookingFromAvailable(roomNumber)
+//             // outside of .then, use global variables to update
+//             const searchDate = selectedDate.value;
+//             const availRooms = getRoomAvailability(totalRooms, totalBookings, searchDate);
+//             console.log({availRooms})
+//             displayAvailableRooms(availRooms);
+//           })
+//           .catch((error) => console.log(error));
+//       });
+//   }
+// };
 
 const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalBookings) => {
   if (event.target.classList.contains("book-now")) {
@@ -78,6 +119,7 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
     const bookingDate = selectedDate.value.replaceAll("-", "/");
     const userID = currentCustomer.id;
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
+
     // make POST request
     postNewBookedRoom(dataToPost)
       .then(() => {
@@ -85,11 +127,11 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
         getBookings()
           .then((bookings) => {
             totalBookings = bookings.bookings;
-            // outside of .then, use global variables to update
+            // removeBookingFromAvailable(roomNumber);
+
+            // update available rooms with the latest data
             const searchDate = selectedDate.value;
-            console.log({searchDate})
-            const availRooms = getRoomAvailability(allRooms, totalBookings, searchDate);
-            displayAvailableRooms(availRooms);
+            updateAvailableRooms(totalRooms, totalBookings, searchDate, roomTypeSelection.value);
           })
           .catch((error) => console.log(error));
       });

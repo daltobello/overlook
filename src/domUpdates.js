@@ -2,6 +2,7 @@ import { validateUserLogin } from "./login"
 
 import { getRoomAvailability } from "./available-rooms"
 import { calculateTotalRoomCost } from "./booked-rooms"
+import { filterByRoomType } from "./filter-rooms"
 // QUERY SELECTORS
 const customerLoginForm = document.querySelector("form")
 const currentBookingContainer = document.querySelector(".current-bookings-container")
@@ -70,6 +71,7 @@ export const displayDashboardView = () => {
 }
 
 export const displayAvailableRooms = (availableRooms) => {
+  console.log({availableRooms})
   availableRoomsContainer.innerHTML = ""
   availableRooms.forEach((room) => {
     availableRoomsContainer.innerHTML += `
@@ -86,7 +88,23 @@ export const displayAvailableRooms = (availableRooms) => {
   })
 }
 
+export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
+  const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate);
+  if (selectedRoomType !== "all") {
+    const filteredRooms = filterByRoomType(availableRooms, selectedRoomType);
+    console.log({filteredRooms})
+    displayAvailableRooms(filteredRooms);
+  } else {
+    displayAvailableRooms(availableRooms);
+  }
+};
 
+// export const removeBookingFromAvailable = (roomNumber) => {
+//   const roomCard = document.getElementById(roomNumber);
+//   if (roomCard) {
+//     roomCard.remove();
+//   }
+// };
 
 
 
