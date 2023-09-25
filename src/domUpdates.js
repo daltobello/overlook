@@ -19,14 +19,14 @@ export const roomTypeSelection = document.querySelector("#room-type")
 
 
   //Helper Functions👇
-  const removeHiddenClass = (elements) => {
+  export const removeHiddenClass = (elements) => {
     elements.forEach(element => {
       element.classList.remove('hidden');
     });
     return elements;
   };
 
-  const addHiddenClass = (elements) => {
+  export const addHiddenClass = (elements) => {
     elements.forEach(element => {
       element.classList.add('hidden');
     });

@@ -5,7 +5,7 @@ import { getCustomers, getBookings, getRooms } from "./apiCalls"
 // API POST
 import { generatePostData, postNewBookedRoom } from "./apiCalls"
 // - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView,} from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, addHiddenClass, removeHiddenClass} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
 import { filterByRoomType, findRoom } from "./filter-rooms"
@@ -50,7 +50,6 @@ bookingBtn.addEventListener("click", () => {
 })
 
 dashboardBtn.addEventListener("click", () => {
-  loadDashboard() // FIX: don't want to load the data again, just want to change view
   displayDashboardView()
 })
 
@@ -92,11 +91,10 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
         // fetch updated data to refresh available rooms
         getBookings()
           .then((bookings) => {
-            console.log({ bookings });
             totalBookings = bookings.bookings;
-
             // outside of .then, use global variables to update
             const searchDate = selectedDate.value;
+            console.log({searchDate})
             const availRooms = getRoomAvailability(allRooms, totalBookings, searchDate);
             displayAvailableRooms(availRooms);
           })
