@@ -1,14 +1,27 @@
-export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
+import { filterByRoomType } from "./filter-rooms"
+
+export const getRoomAvailability = (roomsData, bookingsData, searchDate, roomType) => {
+
+  console.log("ROOMS DATA:", roomsData)
+  console.log("BOOKINGS DATA:", bookingsData)
+  console.log("SEARCH:", searchDate)
   const bookingsOnSearchDate = bookingsData.filter((booking) => {
+
+    
     return booking.date === searchDate
   })
   const availableRooms = roomsData.filter((room) => { 
     const isRoomBooked = bookingsOnSearchDate.some((booking) => { 
      return  booking.roomNumber === room.number 
     })
+    console.log("isRoomBooked", isRoomBooked)
     return !isRoomBooked 
   })
-  return availableRooms 
+  console.log({availableRooms})
+  console.log({roomType})
+  const filteredByType = filterByRoomType(availableRooms, roomType)
+  console.log("AFTER INVOCATION", filteredByType)
+  return filteredByType
 }
 
 
