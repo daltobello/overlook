@@ -1,21 +1,22 @@
 // IMPORT
 import './css/styles.css';
-// - API calls
+// - API GET
 import { getCustomers, getBookings, getRooms } from "./apiCalls"
+// API POST
+import { generatePostData, postNewBookedRoom } from "./apiCalls"
 // - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, } from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView,} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
-import { filterByRoomType } from "./filter-rooms"
+import { filterByRoomType, findRoom } from "./filter-rooms"
 // - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection } from "./domUpdates"
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer } from "./domUpdates"
+import dayjs from "dayjs"
 
-// declare global variables that will store the actual data and be passed into functions that update the DOM.
 // GLOBAL VARIABLES 
 let currentCustomer
-let totalBookings
+export let totalBookings
 let totalRooms
-
 
 
 // START FUNCTION
@@ -36,10 +37,12 @@ const loadDashboard = () => {
     const customerBookings = storeCustomerBookings(currentCustomer[1], totalBookings, totalRooms)
     renderBookingCards(customerBookings)
     renderBookingsTotal(customerBookings)
-    // selectedDate[0].min = dayjs().format('YYYY-MM-DD');
   })
 }
-window.addEventListener("load", loadDashboard)
+window.addEventListener("load", () => {
+  selectedDate.min = dayjs().format('YYYY-MM-DD');
+  loadDashboard()
+})
 
 
 bookingBtn.addEventListener("click", () => {
@@ -60,17 +63,46 @@ searchDateBtn.addEventListener("click", () => {
 roomTypeSelection.addEventListener("change", () => {
   const selectedRoomType = roomTypeSelection.value
   if (selectedRoomType === "all") {
-    const searchDate = selectedDate.value.replaceAll("-", "/")
-    const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
-    displayAvailableRooms(availableRooms)
+    // const searchDate = selectedDate.value.replaceAll("-", "/")
+    // console.log({searchDate})
+    // const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
+    // displayAvailableRooms(availableRooms)
   } else {
-    console.log({selectedRoomType})
     const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
     displayAvailableRooms(filteredRooms)
   }
 })
 
 
-// clicking on bookings should change the view from dashboard to the bookings view
+availableRoomsContainer.addEventListener("click", (event) => {
+  const inputDate = document.querySelector("#selected-date-input");
+  handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
+});
+
+const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalBookings) => {
+  if (event.target.classList.contains("book-now")) {
+    const roomNumber = parseInt(event.target.parentElement.id);
+    const bookingDate = selectedDate.value.replaceAll("-", "/");
+    const userID = currentCustomer.id;
+    const dataToPost = generatePostData(userID, bookingDate, roomNumber);
+
+    // make POST request
+    postNewBookedRoom(dataToPost)
+      .then(() => {
+        // fetch updated data to refresh available rooms
+        getBookings()
+          .then((bookings) => {
+            console.log({ bookings });
+            totalBookings = bookings.bookings;
+
+            // outside of .then, use global variables to update
+            const searchDate = selectedDate.value;
+            const availRooms = getRoomAvailability(allRooms, totalBookings, searchDate);
+            displayAvailableRooms(availRooms);
+          })
+          .catch((error) => console.log(error));
+      });
+  }
+};
 
 
