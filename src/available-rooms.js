@@ -1,14 +1,21 @@
-export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
+import { filterByRoomType } from "./filter-rooms"
+
+export const getRoomAvailability = (roomsData, bookingsData, searchDate, roomType) => {
   const bookingsOnSearchDate = bookingsData.filter((booking) => {
     return booking.date === searchDate
   })
   const availableRooms = roomsData.filter((room) => { 
-    const isRoomBooked = bookingsOnSearchDate.some((booking) => { 
+    const roomIsBooked  = bookingsOnSearchDate.some((booking) => { 
      return  booking.roomNumber === room.number 
     })
-    return !isRoomBooked 
+    return !roomIsBooked 
   })
-  return availableRooms 
+  if (roomType === "all") {
+    return availableRooms
+  } else {
+    const filteredByType = filterByRoomType(availableRooms, roomType)
+    return filteredByType
+  }
 }
 
 
@@ -17,18 +24,10 @@ export const getRoomAvailability = (roomsData, bookingsData, searchDate) => {
       // - isRoomBooked returns false if room available on the searchDate
       
  // bookingsOnSearchDate array only contains bookings with the searchDate
-        // const formattedSearchDate = searchDate.split("/").join("-")
+// const formattedSearchDate = searchDate.split("/").join("-")
 
 
 
 
 
-// cont addBooking = (currentCustomer) => {
-//   // sequence of what happens when button is clicked
-//   // avail rooms sitting on DOM, when you hit 
-//   const currentCustomerBookings = getCustomerBookings()
-//   const availRooms = getRoomAvailability()
-//   currentCustomerBookings.push(availRooms)
-//   // push into customer booking to add bookings
-// }
 

@@ -5,28 +5,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webpack Starter Kit</title>
-  <!-- <link rel="stylesheet" href="datepicker.min.css"> -->
 </head>
 <body>
   <nav>
     <div class="nav-container">
       <div class="home-btn-container">
-          <button id="dashboard-btn">Dashboard</button>
+          <button id="dashboard-btn" class="hidden">Dashboard</button>
       </div>
       <div class="new-booking-container">
-        <button id="new-booking">Booking</button>
+        <button id="new-booking" class="hidden">Booking</button>
       </div>
       <div class="title-container">
         <h1>Overlook</h1>
       </div>
       <div class="user-container">
         <img src="" alt="user icon" class= "user-logo">
-        <h2 id="username" for="username">Please Sign In</h2>
+        <h2 id="username-display" for="username">Please Sign In</h2>
       </div>
     </div>
   </nav>
   <main>
-    <div class="login-container hidden" id="login-view">
+    <div class="login-container" id="login-view">
       <section class="login">
         <h3 id="login-message">Login</h3>
         <form>
@@ -34,31 +33,25 @@
           <input class="login-input" value="customer50" type="text" id="username-input" placeholder="enter username"></input>
           <label for="password-input" class="hidden">Password</label>
           <input class="login-input" value="overlook2021" type="password" id="password-input" placeholder="enter password">
-          <button id="login-btn">Submit</button>
+          <button id="login-submit-btn">Submit</button>
         </form>
       </section>
     </div>
-    <section id="dashboard-view" class="dashboard">
+    <section id="dashboard-view" class="hidden">
       <h3 id="current-bookings">Current Bookings</h3>
       <h3 class="total-spent">Total Spent</h3>
         <section class="bookings-display">
           <section class="current-bookings-container" id="current-bookings">
             <!-- current bookings will go here -->
-            
           </section>
         </section>
-      <!-- <h3>Past Bookings</h3>
-      <section class="bookings-display" id="past-bookings">
-        <section id="past-bookings-container"></section>
-          past bookings will go here
-        </section> -->
     </section>
     <section id="new-bookings-view" class="hidden">
       <h3>Book A Room</h3>
       <div id="new-booking-selection">
         <label for="select-date">Select A Date: </label>
-        <input type="date" min="2023-09-23" placeholder="search dates" id="selected-date-input">
-        <button id="search-btn">Search</button>
+        <input type="date" placeholder="search dates" id="selected-date-input">
+        <button id="search-btn" disabled>Search</button>
       </div>
       <div id="room-type-dropdown">
         <label for="language">Filter By Type:</label>
@@ -74,11 +67,10 @@
             <!-- available rooms will go here -->
     </section>
     <div id="booking-message-container" class="">
-      <p id="booking-message">We are sorry, there are no rooms available currently.</p>
+      <p id="booking-message"></p>
     </div>
     </section>
   </main>
-  <!-- <script src="datepicker.min.js"></script> -->
   <script src="bundle.js"></script>
 </body>
 </html>
