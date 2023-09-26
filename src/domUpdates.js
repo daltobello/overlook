@@ -10,7 +10,6 @@ export const usernameInput = document.querySelector("#username-input");
 export const passwordInput = document.querySelector("#password-input");
 export const loginSubmitBtn = document.querySelector("#login-submit-btn");
 const usernameDisplay = document.querySelector("#username-display");
-
 const currentBookingContainer = document.querySelector(".current-bookings-container");
 export const availableRoomsContainer = document.querySelector(".available-rooms-container");
 const bookingsTotal = document.querySelector(".total-spent");
@@ -81,8 +80,6 @@ export const displayBookingsView = () => {
 
 
 export const displayAvailableRooms = (availableRooms) => {
-  console.log({availableRooms})
-  // displayErrorMessage("")
   if (availableRooms.length === 0) {
     availableRoomsContainer.innerHTML = "";
     displayErrorMessage("We're sorry, there are no rooms available for the selected criteria.")
@@ -106,7 +103,6 @@ export const displayAvailableRooms = (availableRooms) => {
 }
 
 export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
-  // availableRoomsContainer.innerHTML = "";
   const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
 };

@@ -31,8 +31,6 @@ export const fetchAllData = () => {
 }
 
 // EVENT LISTENERS
-
-
 const loadDashboard = () => {
   fetchAllData()
   .then( () => {
@@ -88,40 +86,19 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
     const roomNumber = parseInt(event.target.parentElement.id);
     const bookingDate = selectedDate.value.replaceAll("-", "/");
     const userID = currentCustomer.id;
-    console.log("USER ID", userID)
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
-
-    // make POST request
     postNewBookedRoom(dataToPost)
       .then(() => {
-        // fetch updated data to refresh available rooms
         getBookings()
           .then((bookings) => {
             totalBookings = bookings.bookings;
-            // console.log("TOTAL BOOKINGS AFTER POST", totalBookings)
-            // removeBookingFromAvailable(roomNumber);
-
-            // update available rooms with the latest data
             const searchDate = selectedDate.value.replaceAll("-", "/");
-            console.log("search after post:", searchDate)
             updateAvailableRooms(totalRooms, totalBookings, searchDate, roomTypeSelection.value);
           })
           .catch((error) => console.log(error));
       });
   }
 };
-
-// iterate through totalBookings, use find, find ID of room.
-// pass found room.
-// invoke displayAvailableRooms which would display 
-
-// OR: new message: your room was booked, timeout message. 
-// message above 
-// set time out.
-
-// disable book now button and search button until the dates have been selected
-// default is disabled. when date selected querySelected button.prop("disabled", false) to set disable to false 
-
 
 availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
