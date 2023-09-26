@@ -5,10 +5,10 @@ export const getRoomAvailability = (roomsData, bookingsData, searchDate, roomTyp
     return booking.date === searchDate
   })
   const availableRooms = roomsData.filter((room) => { 
-    const isRoomBooked = bookingsOnSearchDate.some((booking) => { 
+    const roomIsBooked  = bookingsOnSearchDate.some((booking) => { 
      return  booking.roomNumber === room.number 
     })
-    return !isRoomBooked 
+    return !roomIsBooked 
   })
   if (roomType === "all") {
     return availableRooms

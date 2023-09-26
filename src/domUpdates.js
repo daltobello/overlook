@@ -81,10 +81,13 @@ export const displayBookingsView = () => {
 
 
 export const displayAvailableRooms = (availableRooms) => {
-  displayErrorMessage("")
+  console.log({availableRooms})
+  // displayErrorMessage("")
   if (availableRooms.length === 0) {
+    availableRoomsContainer.innerHTML = "";
     displayErrorMessage("We're sorry, there are no rooms available for the selected criteria.")
   } else {
+    bookingErrorMessage.innerText = ""
     availableRoomsContainer.innerHTML = "";
     availableRooms.forEach((room) => {
       availableRoomsContainer.innerHTML += `
@@ -100,9 +103,10 @@ export const displayAvailableRooms = (availableRooms) => {
       `;
     });
   }
-};
+}
 
 export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
+  // availableRoomsContainer.innerHTML = "";
   const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
 };

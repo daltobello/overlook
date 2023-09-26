@@ -36,9 +36,6 @@ export const fetchAllData = () => {
 const loadDashboard = () => {
   fetchAllData()
   .then( () => {
-    // const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
-    // renderBookingCards(customerBookings)
-    // renderBookingsTotal(customerBookings)
   })
 }
 
@@ -69,11 +66,15 @@ dashboardBtn.addEventListener("click", () => {
   displayDashboardView()
 })
 
+selectedDate.addEventListener("change", () => {
+  document.querySelector('#search-btn').disabled = false
+})
+
 searchDateBtn.addEventListener("click", () => {
   const searchDate = selectedDate.value.replaceAll("-", "/")
-  const selectedRoomType = roomTypeSelection.value;
+  const selectedRoomType = roomTypeSelection.value = "all"; 
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate, selectedRoomType)
-    displayAvailableRooms(availableRooms)
+  displayAvailableRooms(availableRooms)
 })
 
 roomTypeSelection.addEventListener("change", () => {
@@ -109,6 +110,18 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
       });
   }
 };
+
+// iterate through totalBookings, use find, find ID of room.
+// pass found room.
+// invoke displayAvailableRooms which would display 
+
+// OR: new message: your room was booked, timeout message. 
+// message above 
+// set time out.
+
+// disable book now button and search button until the dates have been selected
+// default is disabled. when date selected querySelected button.prop("disabled", false) to set disable to false 
+
 
 availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
