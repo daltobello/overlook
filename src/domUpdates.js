@@ -1,4 +1,4 @@
-import { validateUserLogin } from "./login";
+
 
 import { getRoomAvailability } from "./available-rooms";
 import { calculateTotalRoomCost } from "./booked-rooms";
@@ -6,8 +6,8 @@ import { calculateTotalRoomCost } from "./booked-rooms";
 // QUERY SELECTORS
 const loginView = document.querySelector("#login-view");
 const customerLoginForm = document.querySelector("form");
-const usernameInput = document.querySelector("#username-input");
-const passwordInput = document.querySelector("#password-input");
+export const usernameInput = document.querySelector("#username-input");
+export const passwordInput = document.querySelector("#password-input");
 export const loginSubmitBtn = document.querySelector("#login-submit-btn");
 const usernameDisplay = document.querySelector("#username-display");
 
@@ -22,7 +22,7 @@ const dashboardView = document.querySelector("#dashboard-view");
 const newBookingView = document.querySelector("#new-bookings-view");
 export const roomTypeDropdown = document.querySelector("#room-type-dropdown");
 export const roomTypeSelection = document.querySelector("#room-type");
-// export const bookingMessage = document.querySelector("#booking-message")
+export const bookingErrorMessage = document.querySelector("#booking-message")
 
 //Helper Functions👇
 export const removeHiddenClass = (elements) => {
@@ -81,36 +81,37 @@ export const displayBookingsView = () => {
 
 
 export const displayAvailableRooms = (availableRooms) => {
-  console.log({ availableRooms });
-  availableRoomsContainer.innerHTML = "";
-  availableRooms.forEach((room) => {
-    availableRoomsContainer.innerHTML += `
-    <article class="room-card" id="${room.number}">
-            <ul class="room-card-container">
-              <li class="booking-info">Room Number: ${room.number}</li>
-              <li class="booking-info">Cost: $${room.costPerNight.toFixed(2)}</li>
-              <li class="booking-info">Room Type: ${room.roomType}</li>
-              <li class="booking-info">Beds: ${room.bedSize}</li>
-              </ul>
-              <button id="book-now-btn" class="book-now">Book Now</button>
-          </article>
-    `;
-  });
+  displayErrorMessage("")
+  if (availableRooms.length === 0) {
+    displayErrorMessage("We're sorry, there are no rooms available for the selected criteria.")
+  } else {
+    availableRoomsContainer.innerHTML = "";
+    availableRooms.forEach((room) => {
+      availableRoomsContainer.innerHTML += `
+      <article class="room-card" id="${room.number}">
+              <ul class="room-card-container">
+                <li class="booking-info">Room Number: ${room.number}</li>
+                <li class="booking-info">Cost: $${room.costPerNight.toFixed(2)}</li>
+                <li class="booking-info">Room Type: ${room.roomType}</li>
+                <li class="booking-info">Beds: ${room.bedSize}</li>
+                </ul>
+                <button id="book-now-btn" class="book-now">Book Now</button>
+            </article>
+      `;
+    });
+  }
 };
 
-export const updateAvailableRooms = (
-  roomsData,
-  bookingsData,
-  searchDate,
-  selectedRoomType
-) => {
+export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
   const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
 };
 
-export const handleLogin = (currentCustomer) => {
-  const username = usernameInput.value;
-  const password = passwordInput.value;
-  const validatedCustomer = validateUserLogin(username, password, currentCustomer);
+export const handleLogin = (validatedCustomer) => {
   usernameDisplay.innerText = validatedCustomer.name;
 };
+
+
+export const displayErrorMessage = (message) => {
+  bookingErrorMessage.innerText = message 
+}

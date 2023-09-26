@@ -8,8 +8,9 @@ import { generatePostData, postNewBookedRoom } from "./apiCalls"
 import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
+import { validateUserLogin } from "./login";
 // - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn } from "./domUpdates"
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn, usernameInput, passwordInput } from "./domUpdates"
 import dayjs from "dayjs"
 
 // GLOBAL VARIABLES 
@@ -30,17 +31,33 @@ export const fetchAllData = () => {
 }
 
 // EVENT LISTENERS
+
+
 const loadDashboard = () => {
   fetchAllData()
   .then( () => {
-    const customerBookings = storeCustomerBookings(currentCustomer[1], totalBookings, totalRooms)
-    renderBookingCards(customerBookings)
-    renderBookingsTotal(customerBookings)
+    // const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
+    // renderBookingCards(customerBookings)
+    // renderBookingsTotal(customerBookings)
   })
 }
+
 window.addEventListener("load", () => {
   selectedDate.min = dayjs().format('YYYY-MM-DD');
   loadDashboard()
+})
+
+loginSubmitBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+    const validatedCustomer = validateUserLogin(username, password, currentCustomer);
+    currentCustomer = validatedCustomer
+    displayLoginView()
+     handleLogin(currentCustomer)
+    const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
+    renderBookingCards(customerBookings)
+    renderBookingsTotal(customerBookings)
 })
 
 
@@ -56,7 +73,7 @@ searchDateBtn.addEventListener("click", () => {
   const searchDate = selectedDate.value.replaceAll("-", "/")
   const selectedRoomType = roomTypeSelection.value;
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate, selectedRoomType)
-  displayAvailableRooms(availableRooms)
+    displayAvailableRooms(availableRooms)
 })
 
 roomTypeSelection.addEventListener("change", () => {
@@ -70,6 +87,7 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
     const roomNumber = parseInt(event.target.parentElement.id);
     const bookingDate = selectedDate.value.replaceAll("-", "/");
     const userID = currentCustomer.id;
+    console.log("USER ID", userID)
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
 
     // make POST request
@@ -94,12 +112,6 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
 
 availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
-  handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
+  handleNewBooking(event, currentCustomer, totalRooms, inputDate, totalBookings);
 });
 
-loginSubmitBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  console.log("ME!")
-  displayLoginView()
-  handleLogin(currentCustomer)
-})
