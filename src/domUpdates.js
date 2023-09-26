@@ -90,23 +90,9 @@ export const displayAvailableRooms = (availableRooms) => {
 
 export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
   const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate, selectedRoomType);
-  // console.log({availableRooms})
-  // if (selectedRoomType !== "all") {
-  //   const filteredRooms = filterByRoomType(availableRooms, selectedRoomType);
-  //   console.log({filteredRooms})
-  //   displayAvailableRooms(filteredRooms);
-  // } else {
-  //   displayAvailableRooms(availableRooms);
-  // }
   displayAvailableRooms(availableRooms)
 };
 
-// export const removeBookingFromAvailable = (roomNumber) => {
-//   const roomCard = document.getElementById(roomNumber);
-//   if (roomCard) {
-//     roomCard.remove();
-//   }
-// };
 
 
 

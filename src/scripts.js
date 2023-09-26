@@ -8,16 +8,14 @@ import { generatePostData, postNewBookedRoom } from "./apiCalls"
 import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
-// import { filterByRoomType} from "./filter-rooms"
 // - querySelectors
 import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer } from "./domUpdates"
 import dayjs from "dayjs"
 
 // GLOBAL VARIABLES 
 let currentCustomer
-export let totalBookings
 let totalRooms
-let bookedRoomNumbers = []
+export let totalBookings
 
 
 // START FUNCTION
@@ -57,31 +55,12 @@ dashboardBtn.addEventListener("click", () => {
 searchDateBtn.addEventListener("click", () => {
   const searchDate = selectedDate.value.replaceAll("-", "/")
   const selectedRoomType = roomTypeSelection.value;
-  console.log({selectedRoomType})
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate, selectedRoomType)
   displayAvailableRooms(availableRooms)
 })
 
-// change date, hit search, filter is reset
-
-
-
-// roomTypeSelection.addEventListener("change", () => {
-//   const selectedRoomType = roomTypeSelection.value
-//   if (selectedRoomType === "all") {
-//     const searchDate = selectedDate.value.replaceAll("-", "/")
-//     const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate)
-//     displayAvailableRooms(availableRooms)
-//   } else {
-//     const filteredRooms = filterByRoomType(totalRooms, selectedRoomType)
-//     displayAvailableRooms(filteredRooms)
-//   }
-// })
-
-
 roomTypeSelection.addEventListener("change", () => {
   const selectedRoomType = roomTypeSelection.value;
-  console.log("ROOM TYPE EL", selectedRoomType)
   const searchDate = selectedDate.value.replaceAll("-", "/");
   updateAvailableRooms(totalRooms, totalBookings, searchDate, selectedRoomType);
 });
@@ -115,6 +94,5 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
 
 availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
-
   handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
 });
