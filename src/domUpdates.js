@@ -2,9 +2,15 @@ import { validateUserLogin } from "./login"
 
 import { getRoomAvailability } from "./available-rooms"
 import { calculateTotalRoomCost } from "./booked-rooms"
-import { filterByRoomType } from "./filter-rooms"
+// import { filterByRoomType } from "./filter-rooms"
 // QUERY SELECTORS
+const loginView = document.querySelector("#login-view")
 const customerLoginForm = document.querySelector("form")
+const usernameInput = document.querySelector("#username-input")
+const passwordInput = document.querySelector("#password-input")
+export const loginSubmitBtn = document.querySelector("#login-submit-btn")
+const usernameDisplay = document.querySelector("#username-display")
+
 const currentBookingContainer = document.querySelector(".current-bookings-container")
 export const availableRoomsContainer = document.querySelector(".available-rooms-container")
 const bookingsTotal = document.querySelector(".total-spent")
@@ -70,6 +76,12 @@ export const displayDashboardView = () => {
   addHiddenClass([newBookingView]);
 }
 
+export const displayLoginView = () => {
+  removeHiddenClass([dashboardView]);
+  addHiddenClass([loginView, newBookingView]);
+
+}
+
 export const displayAvailableRooms = (availableRooms) => {
   console.log({availableRooms})
   availableRoomsContainer.innerHTML = ""
@@ -94,7 +106,12 @@ export const updateAvailableRooms = (roomsData, bookingsData, searchDate, select
 };
 
 
-
+export const handleLogin = (currentCustomer) => {
+const username = usernameInput.value
+const password = passwordInput.value 
+const validatedCustomer = validateUserLogin(username, password, currentCustomer)
+usernameDisplay.innerText = validatedCustomer.name
+}
 
 
 

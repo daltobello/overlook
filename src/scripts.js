@@ -5,11 +5,11 @@ import { getCustomers, getBookings, getRooms } from "./apiCalls"
 // API POST
 import { generatePostData, postNewBookedRoom } from "./apiCalls"
 // - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms} from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
 // - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer } from "./domUpdates"
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn } from "./domUpdates"
 import dayjs from "dayjs"
 
 // GLOBAL VARIABLES 
@@ -96,3 +96,10 @@ availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
   handleNewBooking(event, currentCustomer[1], totalRooms, inputDate, totalBookings);
 });
+
+loginSubmitBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log("ME!")
+  displayLoginView()
+  handleLogin(currentCustomer)
+})
