@@ -10,8 +10,3 @@ export const validateUserLogin = (username, password, customerData) => {
   }
   return "Incorrect login credentials."
 };
-
-// do slice before login
-// now customer ID
-// return true or false 
-// on DOM, 
