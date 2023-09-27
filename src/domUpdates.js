@@ -38,6 +38,27 @@ export const addHiddenClass = (elements) => {
   return elements;
 };
 
+// CHANGE DISPLAYS
+export const displayLoginView = () => {
+  removeHiddenClass([dashboardView, bookingBtn, dashboardBtn]);
+  addHiddenClass([loginView, newBookingView]);
+};
+
+export const displayDashboardView = () => {
+  removeHiddenClass([dashboardView]);
+  addHiddenClass([newBookingView]);
+};
+
+export const displayBookingsView = () => {
+  addHiddenClass([dashboardView]);
+  removeHiddenClass([newBookingView]);
+};
+
+// LOGIN
+export const handleLogin = (validatedCustomer) => {
+  usernameDisplay.innerText = validatedCustomer.name;
+};
+
 // DASHBOARD
 export const renderBookingCards = (customerBookings) => {
   currentBookingContainer.innerHTML = " ";
@@ -57,28 +78,11 @@ export const renderBookingCards = (customerBookings) => {
 };
 
 export const renderBookingsTotal = (customerBookings) => {
+  console.log("Bookings coming into renderBookingsTotal", customerBookings)
   bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings).toFixed(2)}`;
 };
 
 // AVAILABLE BOOKINGS
-
-export const displayLoginView = () => {
-  removeHiddenClass([dashboardView, bookingBtn, dashboardBtn]);
-  addHiddenClass([loginView, newBookingView]);
-};
-
-export const displayDashboardView = () => {
-  removeHiddenClass([dashboardView]);
-  addHiddenClass([newBookingView]);
-};
-
-export const displayBookingsView = () => {
-  addHiddenClass([dashboardView]);
-  removeHiddenClass([newBookingView]);
-};
-
-
-
 export const displayAvailableRooms = (availableRooms) => {
   if (availableRooms.length === 0) {
     availableRoomsContainer.innerHTML = "";
@@ -105,12 +109,8 @@ export const displayAvailableRooms = (availableRooms) => {
 export const updateAvailableRooms = (roomsData, bookingsData, searchDate, selectedRoomType) => {
   const availableRooms = getRoomAvailability(roomsData, bookingsData, searchDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
+  
 };
-
-export const handleLogin = (validatedCustomer) => {
-  usernameDisplay.innerText = validatedCustomer.name;
-};
-
 
 export const displayErrorMessage = (message) => {
   bookingErrorMessage.innerText = message 
