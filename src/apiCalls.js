@@ -25,10 +25,6 @@ export const getRooms = () => {
     .catch((error) => console.log("error"));
 };
 
-// setup POST here
-// call function in eventListener for booking room
-// create POST object with variables: data and room number
-
 export const generatePostData = (userID, bookingDate, roomNumber) => {
   return {
     "userID": userID,

@@ -8,5 +8,3 @@ export const customersData = [
     name: "Rocio Schuster",
   },
 ];
-
-// export default customersData;

@@ -1,16 +1,15 @@
 // IMPORT
 import './css/styles.css';
-// - API GET
-import { getCustomers, getBookings, getRooms } from "./apiCalls"
-// API POST
-import { generatePostData, postNewBookedRoom } from "./apiCalls"
-// - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass} from "./domUpdates" 
+// API CALLS
+import { getCustomers, getBookings, getRooms, generatePostData, postNewBookedRoom } from "./apiCalls"
+
+// FUNCTIONS
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass, addHiddenClass} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
 import { validateUserLogin } from "./login";
-// - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn, usernameInput, passwordInput } from "./domUpdates"
+// QUERY SELECTORS
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeSelection, availableRoomsContainer, loginSubmitBtn, usernameInput, passwordInput, errorMessage} from "./domUpdates"
 import dayjs from "dayjs"
 
 // GLOBAL VARIABLES 
@@ -23,7 +22,7 @@ export let totalBookings
 export const fetchAllData = () => { 
   return Promise.all([getCustomers(), getBookings(), getRooms()])
   .then( data =>{
-    currentCustomer = data[0].customers
+    currentCustomer = data[0].customers // could have allCustomers
     totalBookings = data[1].bookings
     totalRooms = data[2].rooms
   })
@@ -35,44 +34,47 @@ const loadLogin = () => {
   .then( () => {
   const username = usernameInput.value;
   const password = passwordInput.value;
-  const validatedCustomer = validateUserLogin(username, password, currentCustomer);
-  console.log({validatedCustomer})
-  currentCustomer = validatedCustomer
-  console.log({currentCustomer})
+  const validatedCustomer = validateUserLogin(username, password, currentCustomer)
 
-  const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
-  console.log({customerBookings})
-  renderBookingCards(customerBookings)
-  renderBookingsTotal(customerBookings)
-  selectedDate.min = dayjs().format('YYYY-MM-DD');
-  displayLoginView()
-  handleLogin(currentCustomer)
-  })
-}
+  if (validatedCustomer !== "Incorrect login credentials.") {
+    addHiddenClass([errorMessage]);
+    currentCustomer = validatedCustomer
+    const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
+    renderBookingCards(customerBookings)
+    renderBookingsTotal(customerBookings)
+    displayLoginView()
+    handleLogin(currentCustomer)
+    selectedDate.min = dayjs().format('YYYY-MM-DD');
+  } else {
+    removeHiddenClass([errorMessage]);
+  return
+  }
+});
+};
 
 loginSubmitBtn.addEventListener("click", (event) => {
   loadLogin()
   event.preventDefault()
-})
+});
 
 bookingBtn.addEventListener("click", () => {
   displayBookingsView() 
-})
+});
 
 dashboardBtn.addEventListener("click", () => {
   displayDashboardView()
-})
+});
 
 selectedDate.addEventListener("change", () => {
   document.querySelector('#search-btn').disabled = false
-})
+});
 
 searchDateBtn.addEventListener("click", () => {
   const searchDate = selectedDate.value.replaceAll("-", "/")
   const selectedRoomType = roomTypeSelection.value = "all"; 
   const availableRooms = getRoomAvailability(totalRooms, totalBookings, searchDate, selectedRoomType)
   displayAvailableRooms(availableRooms)
-})
+});
 
 roomTypeSelection.addEventListener("change", () => {
   const selectedRoomType = roomTypeSelection.value;

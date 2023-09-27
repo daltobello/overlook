@@ -1,14 +1,11 @@
-
-
 import { getRoomAvailability } from "./available-rooms";
 import { calculateTotalRoomCost } from "./booked-rooms";
-// import { filterByRoomType } from "./filter-rooms"
+
 // QUERY SELECTORS
-const loginView = document.querySelector("#login-view");
-const customerLoginForm = document.querySelector("form");
 export const usernameInput = document.querySelector("#username-input");
 export const passwordInput = document.querySelector("#password-input");
 export const loginSubmitBtn = document.querySelector("#login-submit-btn");
+const loginView = document.querySelector("#login-view");
 const usernameDisplay = document.querySelector("#username-display");
 const currentBookingContainer = document.querySelector(".current-bookings-container");
 export const availableRoomsContainer = document.querySelector(".available-rooms-container");
@@ -22,8 +19,9 @@ const newBookingView = document.querySelector("#new-bookings-view");
 export const roomTypeDropdown = document.querySelector("#room-type-dropdown");
 export const roomTypeSelection = document.querySelector("#room-type");
 export const bookingErrorMessage = document.querySelector("#booking-message")
+export const errorMessage = document.querySelector(".error-message")
 
-//Helper Functions👇
+//HELPER FUNCTIONS👇
 export const removeHiddenClass = (elements) => {
   elements.forEach((element) => {
     element.classList.remove("hidden");
@@ -38,7 +36,7 @@ export const addHiddenClass = (elements) => {
   return elements;
 };
 
-// CHANGE DISPLAYS
+// CHANGE VIEWS
 export const displayLoginView = () => {
   removeHiddenClass([dashboardView, bookingBtn, dashboardBtn]);
   addHiddenClass([loginView, newBookingView]);
