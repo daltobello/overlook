@@ -23,7 +23,6 @@ export let totalBookings
 export const fetchAllData = () => { 
   return Promise.all([getCustomers(), getBookings(), getRooms()])
   .then( data =>{
-    // console.log(data)
     currentCustomer = data[0].customers
     totalBookings = data[1].bookings
     totalRooms = data[2].rooms
@@ -31,30 +30,30 @@ export const fetchAllData = () => {
 }
 
 // EVENT LISTENERS
-const loadDashboard = () => {
+const loadLogin = () => {
   fetchAllData()
   .then( () => {
+  const username = usernameInput.value;
+  const password = passwordInput.value;
+  const validatedCustomer = validateUserLogin(username, password, currentCustomer);
+  console.log({validatedCustomer})
+  currentCustomer = validatedCustomer
+  console.log({currentCustomer})
+
+  const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
+  console.log({customerBookings})
+  renderBookingCards(customerBookings)
+  renderBookingsTotal(customerBookings)
+  selectedDate.min = dayjs().format('YYYY-MM-DD');
+  displayLoginView()
+  handleLogin(currentCustomer)
   })
 }
 
-window.addEventListener("load", () => {
-  selectedDate.min = dayjs().format('YYYY-MM-DD');
-  loadDashboard()
-})
-
 loginSubmitBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-    const validatedCustomer = validateUserLogin(username, password, currentCustomer);
-    currentCustomer = validatedCustomer
-    displayLoginView()
-     handleLogin(currentCustomer)
-    const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
-    renderBookingCards(customerBookings)
-    renderBookingsTotal(customerBookings)
+  loadLogin()
+  event.preventDefault()
 })
-
 
 bookingBtn.addEventListener("click", () => {
   displayBookingsView() 
@@ -81,7 +80,7 @@ roomTypeSelection.addEventListener("change", () => {
   updateAvailableRooms(totalRooms, totalBookings, searchDate, selectedRoomType);
 });
 
-const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalBookings) => {
+const handleNewBooking = (event, currentCustomer, allRooms, selectedDate) => {
   if (event.target.classList.contains("book-now")) {
     const roomNumber = parseInt(event.target.parentElement.id);
     const bookingDate = selectedDate.value.replaceAll("-", "/");
@@ -89,14 +88,16 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate, totalB
     const dataToPost = generatePostData(userID, bookingDate, roomNumber);
     postNewBookedRoom(dataToPost)
       .then(() => {
-        getBookings()
-          .then((bookings) => {
-            totalBookings = bookings.bookings;
-            const searchDate = selectedDate.value.replaceAll("-", "/");
-            updateAvailableRooms(totalRooms, totalBookings, searchDate, roomTypeSelection.value);
-          })
-          .catch((error) => console.log(error));
-      });
+        return getBookings();
+      })
+      .then((bookings) => {
+        totalBookings = bookings.bookings;
+        const updatedCustomerBookings = storeCustomerBookings(currentCustomer, totalBookings, allRooms);
+        renderBookingsTotal(updatedCustomerBookings);
+        const searchDate = selectedDate.value.replaceAll("-", "/");
+        updateAvailableRooms(totalRooms, totalBookings, searchDate, roomTypeSelection.value);
+      })
+      .catch((error) => console.log(error));
   }
 };
 
