@@ -22,6 +22,7 @@ const newBookingView = document.querySelector("#new-bookings-view");
 export const roomTypeDropdown = document.querySelector("#room-type-dropdown");
 export const roomTypeSelection = document.querySelector("#room-type");
 export const bookingErrorMessage = document.querySelector("#booking-message")
+export const errorMessage = document.querySelector(".error-message")
 
 //Helper Functions👇
 export const removeHiddenClass = (elements) => {

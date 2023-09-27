@@ -5,12 +5,12 @@ import { getCustomers, getBookings, getRooms } from "./apiCalls"
 // API POST
 import { generatePostData, postNewBookedRoom } from "./apiCalls"
 // - Functions
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass} from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass, addHiddenClass} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
 import { validateUserLogin } from "./login";
 // - querySelectors
-import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn, usernameInput, passwordInput } from "./domUpdates"
+import { searchDateBtn, selectedDate, dashboardBtn, bookingBtn, roomTypeDropdown, roomTypeSelection, availableRoomsContainer, loginSubmitBtn, usernameInput, passwordInput, errorMessage} from "./domUpdates"
 import dayjs from "dayjs"
 
 // GLOBAL VARIABLES 
@@ -23,7 +23,7 @@ export let totalBookings
 export const fetchAllData = () => { 
   return Promise.all([getCustomers(), getBookings(), getRooms()])
   .then( data =>{
-    currentCustomer = data[0].customers
+    currentCustomer = data[0].customers // could have allCustomers
     totalBookings = data[1].bookings
     totalRooms = data[2].rooms
   })
@@ -32,23 +32,34 @@ export const fetchAllData = () => {
 // EVENT LISTENERS
 const loadLogin = () => {
   fetchAllData()
+
   .then( () => {
   const username = usernameInput.value;
   const password = passwordInput.value;
-  const validatedCustomer = validateUserLogin(username, password, currentCustomer);
-  console.log({validatedCustomer})
-  currentCustomer = validatedCustomer
-  console.log({currentCustomer})
-
-  const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
-  console.log({customerBookings})
-  renderBookingCards(customerBookings)
-  renderBookingsTotal(customerBookings)
-  selectedDate.min = dayjs().format('YYYY-MM-DD');
-  displayLoginView()
-  handleLogin(currentCustomer)
-  })
+  const validatedCustomer = validateUserLogin(username, password, currentCustomer)
+  if (validatedCustomer !== "Incorrect login credentials.") {
+    addHiddenClass([errorMessage]);
+    currentCustomer = validatedCustomer
+    const customerBookings = storeCustomerBookings(currentCustomer, totalBookings, totalRooms)
+    renderBookingCards(customerBookings)
+    renderBookingsTotal(customerBookings)
+    selectedDate.min = dayjs().format('YYYY-MM-DD');
+    displayLoginView()
+    handleLogin(currentCustomer)
+  } else {
+    removeHiddenClass([errorMessage]);
+  return
+  }
+})
 }
+
+    // call DOM updates function that displays invalid login
+    // or display hidden with p tag.
+
+// login then FETCH.
+// login occurs. validated, fetch all data, assign it based on the login ID
+// fetch data, then currentCustomer would get assigned based on login ID
+
 
 loginSubmitBtn.addEventListener("click", (event) => {
   loadLogin()
