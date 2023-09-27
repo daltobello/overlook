@@ -11,25 +11,17 @@
 </head>
 <body>
   <nav>
-    <!-- <div class="nav-container">  -->
-      <!-- <div class="home-btn-container"> -->
-          <!-- <button id="dashboard-btn" class="hidden">Dashboard</button> -->
-      <!-- </div> -->
-    
-      <!-- <div class="title-container"> -->
-        <h1>Overlook</h1>
-      <!-- </div> -->
+      <h1>Overlook</h1>
       <div class="nav-wrapper">
         <div class="new-booking-container">
         <button id="dashboard-btn" class="hidden">Dashboard</button>
         <button id="new-booking" class="hidden">Booking</button>
         </div>
         <div class="user-container">
-        <img src="" alt="user icon" class= "user-logo">
+        <!-- <img src="/src/images/user-138.png" alt="user icon" class= "user-logo"> -->
         <h2 id="username-display" for="username">Please Sign In</h2>
       </div>
     </div>
-    <!-- </div> -->
   </nav>
   <main>
     <div class="login-container" id="login-view">
@@ -37,9 +29,9 @@
         <h3 id="login-message">Login</h3>
         <form>
           <label for="username-input" class="hidden">Username</label>
-          <input class="login-input" value="" type="text" id="username-input" placeholder="enter username"></input>
+          <input class="login-input" value="customer50" type="text" id="username-input" placeholder="enter username"></input>
           <label for="password-input" class="hidden">Password</label>
-          <input class="login-input" value="" type="password" id="password-input" placeholder="enter password">
+          <input class="login-input" value="overlook2021" type="password" id="password-input" placeholder="enter password">
           <button id="login-submit-btn">Submit</button>
           <p class="error-message hidden">Invalid login</p>
         </form>
@@ -71,11 +63,12 @@
           <option value="single room">Single Room</option>
         </select>
       </div>
-    <section class="available-rooms-container" id="available-bookings">
+    <section class="available-rooms-container scroll-bar" id="available-bookings">
             <!-- available rooms will go here -->
     </section>
-    <div id="booking-message-container" class="">
-      <p id="booking-message"></p>
+    <div id="booking-message-container">
+      <p id="booking-error-message"></p>
+      <p id="booking-confirm-message" class="hidden">Thank you for booking with us!</p>
     </div>
     </section>
   </main>

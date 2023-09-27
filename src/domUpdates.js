@@ -18,8 +18,9 @@ const dashboardView = document.querySelector("#dashboard-view");
 const newBookingView = document.querySelector("#new-bookings-view");
 export const roomTypeDropdown = document.querySelector("#room-type-dropdown");
 export const roomTypeSelection = document.querySelector("#room-type");
-export const bookingErrorMessage = document.querySelector("#booking-message")
+export const bookingErrorMessage = document.querySelector("#booking-error-message")
 export const errorMessage = document.querySelector(".error-message")
+export const bookingConfirmMessage = document.querySelector("#booking-confirm-message")
 
 //HELPER FUNCTIONS👇
 export const removeHiddenClass = (elements) => {
@@ -76,7 +77,6 @@ export const renderBookingCards = (customerBookings) => {
 };
 
 export const renderBookingsTotal = (customerBookings) => {
-  console.log("Bookings coming into renderBookingsTotal", customerBookings)
   bookingsTotal.innerHTML = `Total Spent: $${calculateTotalRoomCost(customerBookings).toFixed(2)}`;
 };
 
@@ -112,4 +112,11 @@ export const updateAvailableRooms = (roomsData, bookingsData, searchDate, select
 
 export const displayErrorMessage = (message) => {
   bookingErrorMessage.innerText = message 
+}
+
+export const displayConfirmationMessage = () => {
+  bookingConfirmMessage.classList.remove("hidden")
+  setTimeout(() => {
+    bookingConfirmMessage.classList.add("hidden")
+  }, 2000)
 }
