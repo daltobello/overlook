@@ -2,7 +2,6 @@ export const getCustomerBookings = (currentCustomer, allBookings) =>{
   const filteredBookings = allBookings.filter((booking) => {
     return booking.userID === currentCustomer.id
   })
-  console.log("CUSTOMER'S BOOKINGS", filteredBookings)
   return  filteredBookings // array of booking objects that correspond with a given customer's userID
 }
 
