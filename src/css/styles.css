@@ -53,7 +53,6 @@ padding-top: 2rem;
 main {
   display: flex;
   justify-content: center;
-  /* height: 100vh; */
   width: 100vw;
 }
 
@@ -79,8 +78,6 @@ main {
   border-radius: 10px;
   background:  rgba(187, 174, 165, 0.40);
 }
-
-
 
 
 .bookings-display {
@@ -111,12 +108,12 @@ main {
   height: 60%;
 }
 
-.scroll {
-  border: solid;
-  width: 80vw;
-  height: 80%;
+.scroll-bar {
   display: flex;
   flex-wrap: nowrap;
+  width: 60vw;
+  height: 80%;
+  /* border: solid; */
   overflow-x: scroll;
   white-space: nowrap;
 }
