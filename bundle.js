@@ -505,7 +505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "postNewBookedRoom": () => (/* binding */ postNewBookedRoom)
 /* harmony export */ });
 const getCustomers = () => {
-  return fetch("http://localhost:3001/api/v1/customers")
+  return fetch("https://overlook-api-dun.vercel.app/api/v1/customers")
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -514,7 +514,7 @@ const getCustomers = () => {
 };
 
 const getBookings = () => {
-  return fetch("http://localhost:3001/api/v1/bookings")
+  return fetch("https://overlook-api-dun.vercel.app/api/v1/bookings")
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -523,7 +523,7 @@ const getBookings = () => {
 };
 
 const getRooms = () => {
-  return fetch("http://localhost:3001/api/v1/rooms")
+  return fetch("https://overlook-api-dun.vercel.app/api/v1/rooms")
     .then((response) => response.json())
     .then((data) => {
       return data;
