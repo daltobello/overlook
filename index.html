@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpack Starter Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Karla:ital,wght@0,200;0,300;0,500;1,300&family=Poppins:wght@200;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+      <h1>Overlook</h1>
+      <div class="nav-wrapper">
+        <div class="new-booking-container">
+        <button id="dashboard-btn" class="hidden">Dashboard</button>
+        <button id="new-booking" class="hidden">Booking</button>
+        </div>
+        <div class="user-container">
+        <!-- <img src="/src/images/user-138.png" alt="user icon" class= "user-logo"> -->
+        <h2 id="username-display" for="username">Please Sign In</h2>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="login-container" id="login-view">
+      <section class="login">
+        <h3 id="login-message">Login</h3>
+        <form>
+          <label for="username-input" class="hidden">Username</label>
+          <input class="login-input" value="customer50" type="text" id="username-input" placeholder="enter username"></input>
+          <label for="password-input" class="hidden">Password</label>
+          <input class="login-input" value="overlook2021" type="password" id="password-input" placeholder="enter password">
+          <button id="login-submit-btn">Submit</button>
+          <p class="error-message hidden">Invalid login</p>
+        </form>
+      </section>
+    </div>
+    <section id="dashboard-view" class="hidden">
+      <h3 id="current-bookings">Current Bookings</h3>
+      <h3 class="total-spent">Total Spent</h3>
+        <section class="bookings-display">
+          <section class="current-bookings-container scroll-bar" id="current-bookings">
+            <!-- current bookings will go here -->
+          </section>
+        </section>
+    </section>
+    <section id="new-bookings-view" class="hidden">
+      <h3>Book A Room</h3>
+      <div id="new-booking-selection">
+        <label for="select-date">Select A Date: </label>
+        <input type="date" placeholder="search dates" id="selected-date-input">
+        <button id="search-btn" disabled>Search</button>
+      </div>
+      <div id="room-type-dropdown">
+        <label for="language">Filter By Type:</label>
+        <select name="room-type" id="room-type">
+          <option value="all" selected>All</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="junior suite">Junior Suite</option>
+          <option value="single room">Single Room</option>
+        </select>
+      </div>
+    <section class="available-rooms-container scroll-bar" id="available-bookings">
+            <!-- available rooms will go here -->
+    </section>
+    <div id="booking-message-container">
+      <p id="booking-error-message"></p>
+      <p id="booking-confirm-message" class="hidden">Thank you for booking with us!</p>
+    </div>
+    </section>
+  </main>
+  <script src="bundle.js"></script>
+</body>
+</html>
