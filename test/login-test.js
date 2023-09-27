@@ -1,18 +1,15 @@
 import chai from "chai";
 const expect = chai.expect;
 
-// sample data
 import { customersData } from "../sample-data/customers-sample";
-
-// functions
 import { validateUserLogin } from "../src/login";
 
 describe("validateUserLogin", () => {
-  const allCustomers = customersData;
-
   it('should be a function', () => {
     expect(validateUserLogin).to.be.a('function');
   });
+
+  const allCustomers = customersData;
 
   it("should check if a customer's login credentials are valid and return the customer", () => {
     const validatedCustomer = validateUserLogin("customer1", "overlook2021", allCustomers);

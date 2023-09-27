@@ -6,15 +6,16 @@ import { roomsData } from "../sample-data/rooms-sample";
 import {getRoomAvailability} from "../src/available-rooms";
 
 describe("getRoomAvailability", () => {
+  it('should be a function', () => {
+    expect(getRoomAvailability).to.be.a('function');
+  });
+
   let allBookings, allRooms
 
   beforeEach(()=> {
   allBookings = bookingsData
   allRooms = roomsData
-
-  it('should be a function', () => {
-    expect(getRoomAvailability).to.be.a('function');
-  });
+});
 
   it('should return an array of available rooms on a given date', () => {
     const filteredRooms = getRoomAvailability(allRooms, allBookings, "2022/02/05", "suite")
@@ -56,9 +57,8 @@ describe("getRoomAvailability", () => {
     }])
   })
 
-      it('should return an empty array if there are no rooms available on a given date that match the roomType', () => {
-      const availableRooms = getRoomAvailability(allRooms, allBookings, "2022/02/16", "king")
-      expect(availableRooms.length).to.deep.equal(0) 
-    });
+  it('should return an empty array if there are no rooms available on a given date that match the roomType', () => {
+  const availableRooms = getRoomAvailability(allRooms, allBookings, "2022/02/16", "king")
+  expect(availableRooms.length).to.deep.equal(0) 
   });
 });
