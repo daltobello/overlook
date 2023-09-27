@@ -4,7 +4,7 @@ import './css/styles.css';
 import { getCustomers, getBookings, getRooms, generatePostData, postNewBookedRoom } from "./apiCalls"
 
 // FUNCTIONS
-import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass, addHiddenClass} from "./domUpdates" 
+import {renderBookingCards, renderBookingsTotal, displayAvailableRooms, displayBookingsView, displayDashboardView, updateAvailableRooms, displayLoginView, handleLogin,  removeHiddenClass, addHiddenClass, displayConfirmationMessage} from "./domUpdates" 
 import { storeCustomerBookings } from "./booked-rooms"
 import { getRoomAvailability } from "./available-rooms"
 import { validateUserLogin } from "./login";
@@ -106,5 +106,6 @@ const handleNewBooking = (event, currentCustomer, allRooms, selectedDate) => {
 availableRoomsContainer.addEventListener("click", (event) => {
   const inputDate = document.querySelector("#selected-date-input");
   handleNewBooking(event, currentCustomer, totalRooms, inputDate, totalBookings);
+  displayConfirmationMessage()
 });
 
