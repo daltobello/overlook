@@ -18,5 +18,3 @@ export const bookingsData = [
     "roomNumber": 7
   },
 ];
-
-// export default bookingsData
