@@ -5,24 +5,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webpack Starter Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Karla:ital,wght@0,200;0,300;0,500;1,300&family=Poppins:wght@200;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav>
-    <div class="nav-container">
-      <div class="home-btn-container">
-          <button id="dashboard-btn" class="hidden">Dashboard</button>
-      </div>
-      <div class="new-booking-container">
-        <button id="new-booking" class="hidden">Booking</button>
-      </div>
-      <div class="title-container">
+    <!-- <div class="nav-container">  -->
+      <!-- <div class="home-btn-container"> -->
+          <!-- <button id="dashboard-btn" class="hidden">Dashboard</button> -->
+      <!-- </div> -->
+    
+      <!-- <div class="title-container"> -->
         <h1>Overlook</h1>
-      </div>
-      <div class="user-container">
+      <!-- </div> -->
+      <div class="nav-wrapper">
+        <div class="new-booking-container">
+        <button id="dashboard-btn" class="hidden">Dashboard</button>
+        <button id="new-booking" class="hidden">Booking</button>
+        </div>
+        <div class="user-container">
         <img src="" alt="user icon" class= "user-logo">
         <h2 id="username-display" for="username">Please Sign In</h2>
       </div>
     </div>
+    <!-- </div> -->
   </nav>
   <main>
     <div class="login-container" id="login-view">
@@ -41,7 +48,7 @@
       <h3 id="current-bookings">Current Bookings</h3>
       <h3 class="total-spent">Total Spent</h3>
         <section class="bookings-display">
-          <section class="current-bookings-container" id="current-bookings">
+          <section class="current-bookings-container scroll" id="current-bookings">
             <!-- current bookings will go here -->
           </section>
         </section>
